@@ -15,7 +15,7 @@ A rough overview of the CWLProv folder structure (the _bag_), is here explained 
 * `manifest-*.txt` - checksums of files under data/ (algorithms subject to change)
 * `tagmanifest-*.txt` - checksums of the remaining files (algorithms subject to change)
 * `metadata/manifest.json` - [Research Object manifest](https://w3id.org/bundle/#manifest) as JSON-LD. Types and relates files within bag.
-* `metadata/provenance/primary.cwlprov*` -  [PROV](https://www.w3.org/TR/prov-overview/) trace of main workflow execution in alternative PROV and RDF formats
+* `metadata/provenance/primary.cwlprov*` - [provenance](prov.md) traces of workflow execution
 * `data/` - bag payload: workflow/step input/output data files (content-addressable)
 * `data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376` - a data item with checksum ``327fc7aedf4f6b69a42a7c8b808dc5a7aff61376`` (checksum algorithm is subject to change)
 * `workflow/packed.cwl` - The ``cwltool --pack`` standalone version of the executed workflow
@@ -57,7 +57,7 @@ CWLProv bags MAY include direct copies of arbitrarily named workflow files used 
 CWLPROV bags MUST include provenance traces of the workflow run under `metadata/provenance`, of which the file `primary.cwlprov.provn` MUST be present in [PROV-N](http://www.w3.org/TR/2013/REC-prov-n-20130430/) format, describing the top level workflow execution according to the [CWLProv PROV profile](prov.md). Other provenance files and formats MAY be present, in which case they SHOULD have `conformsTo` declared in the [RO manifest](ro.md).
 
 
-## CWLProv identifiers
+## External Identifier
 
 CWLProv is reusing Linked Data standards like [JSON-LD](https://json-ld.org/), [W3C PROV](https://www.w3.org/TR/prov-primer/) and [Research Object](http://www.researchobject.org/specifications/).
 
