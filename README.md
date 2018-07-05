@@ -50,9 +50,9 @@ You may also want to contribute a corresponding issue or pull request in the [cw
 
 ## Requirements Language
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
-"OPTIONAL" in documents of this repository are to be interpreted 
+The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL
+NOT`, `SHOULD`, `SHOULD NOT`, `RECOMMENDED`,  `MAY`, and
+`OPTIONAL` in documents of this repository are to be interpreted 
 as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 
@@ -60,16 +60,23 @@ as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 CWLProv is versioned using [Semantic Versioning](https://semver.org/spec/v2.0.0.html), following the pattern `MAJOR.MINOR.PATCH` (e.g. `1.2.0`).
 
-To determine version compatibility we consider the packaging of a CWLProv RO as a kind of 'API'.
-Examples of changes to the API:
+To determine version compatibility we consider the packaging of a CWLProv RO as a kind of "API". Examples of changes to CWLProv:
 
-* Major version change: Removal of resource type, change of format of PROV, removing annotations, changing namespaces
-* Minor version change: Adding other resources, adding annotations, additional properties, changing entity identifier scheme, change of file paths in RO
-* Patch version change: Fixing syntactical typos (e.g. invalid JSON-LD), 
+* Major version change: Removal of resource type, change of format of PROV, removing annotations, changing namespaces, removing PROV statement patterns
+* Minor version change: Adding other resources, adding annotations, additional properties, changing entity identifier scheme, change of file paths in RO, minor change of underlying syntax and package version, adding/augmenting PROV statement patterns, conformance to [PROV constraints](https://www.w3.org/TR/prov-constraints/)
+* Patch version change: Fixing syntactical typos (e.g. invalid or inefficient [JSON-LD](https://json-ld.org/)), inconsistencies in textual language, adding [inferred PROV statements](http://www.w3.org/TR/prov-sem/)
 
-You may spot that _change of file path_ is classified as minor, that is because paths can be found dynamically by following links from the manifest, its annotations and the PROV traces. This is similar to REST principles where URI templates should not be assumed, but followed from links.
+This means that consumers of CWLProv can make strong assumptions on backwards and forwards compatibility:
 
-The current versions of CWLProv have major `0`, indicating that disruptive changes MAY occur before the profile stabilize at `1.x.y`.
+* Major: Unsupported major versions can't be safely parsed
+* Minor: Can safely parse (but not reproduce) newer versions. Parsing older versions is safe if later CWLProv additions are handled as optional.
+* Patch: Differences can usually be safely ignored
+
+_Unless a patch version is affecting the output, the declared profile SHOULD have patch version `0` even if the code was implemented with a later CWLProv._
+
+**Tip:** You may spot that _change of file paths_ is classified as minor, that is because paths can be found dynamically by following links from the manifest, its annotations and the PROV traces. This is similar to REST principles where URI templates should not be assumed, but followed from links._
+
+The current version of CWLProv have major `0`, indicating that [disruptive changes](https://semver.org/spec/v2.0.0.html#spec-item-4) may occur before the profile stabilize at `1.x.y`.
 
 Each CWLProv version has a `w3id.org` _permalink_ that SHOULD be declared inside the [RO](ro.md) to indicate its conformance. 
 
