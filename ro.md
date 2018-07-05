@@ -1,54 +1,69 @@
-# CWLProv folder structure
+# CWLProv Research Object profile
 
 The [CWLProv](./) folder structure is a [Research Object](http://www.researchobject.org/)
 that conforms to the [RO BagIt profile](https://w3id.org/ro/bagit)
 and contains [PROV](https://www.w3.org/TR/prov-overview/)
 traces detailing the execution of the workflow and its steps.
 
-The folder structure complies with [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-16) 
-so that its content and completeness can be verified with any 
-[BagIt tool](https://en.wikipedia.org/wiki/BagIt#Tools) or libraries.
 
-A rough overview of the CWLProv folder structure, here explained using the [revsort-run-1 example](examples/revsort-run-1):
+A relevant parts of the CWLProv folder structure is here explained using the [revsort-run-1 example](examples/revsort-run-1):
 
-* `bagit.txt` - bag marker for [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-16)
-* `bag-info.txt` - minimal bag metadata. ``The External-Identifier`` key shows which [arcp](https://tools.ietf.org/id/draft-soilandreyes-arcp-03.html) can be used as base URI within the folder bag.
+* `bag-info.txt` - minimal bag metadata (notably the `External-Identifier`)
 * `manifest-*.txt` - checksums of files under data/ (algorithms subject to change)
-* `tagmanifest-*.txt` - checksums of the remaining files (algorithms subject to change)
 * `metadata/manifest.json` - [Research Object manifest](https://w3id.org/bundle/#manifest) as JSON-LD. Types and relates files within bag.
-* `metadata/provenance/primary.cwlprov*` -  [PROV](https://www.w3.org/TR/prov-overview/) trace of main workflow execution in alternative PROV and RDF formats
-* `data/` - bag payload, workflow/step input/output data files (content-addressable)
-* `data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376` - a data item with checksum ``327fc7aedf4f6b69a42a7c8b808dc5a7aff61376`` (checksum algorithm is subject to change)
-* `workflow/packed.cwl` - The ``cwltool --pack`` standalone version of the executed workflow
-* `workflow/primary-job.json` - Job input for use with packed.cwl (references ``data/*``)
-* `snapshot/` - Direct copies of original files used for execution, but may have broken relative/absolute paths
 
 
-See the [CWLProv whitepaper](https://doi.org/10.5281/zenodo.1208477) for more background.
+See the [CWLProv BagIt profile](bagit.md) for details on the BagIt structures and suggested file paths.
+
+This document defines what elements should be present in the Research Object manifest; forming the _CWLProv Research Object profile_.
+
 
 ## Research Object manifest
 
-The file [metadata/manifest.json](examples/revsort-run-1/metadata/manifest.json) follows the structure defined for [Research Object Bundles](https://w3id.org/bundle/#manifest), but 
-note that `.ro/` is instead called `metadata/` as CWLProv conforms to the derived [RO BagIt profile](https://w3id.org/ro/bagit).
+While the [BagIt manifests](bagit.md) provides checksums of CWLProv files, they cannot include any additional information, such as file type, provenance, attribution or relations.  To this end CWLProv uses the [Research Object specifications](http://www.researchobject.org/specifications/), which reuse existing Linked Data standards like 
+[OAI-ORE](https://www.openarchives.org/ore/), [JSON-LD](https://json-ld.org/), [Web Annotation Model](https://www.w3.org/TR/annotation-model/), [PROV](https://www.w3.org/TR/prov-overview/) and [PAV](http://purl.org/pav/html).
 
-Some of the keys of the CWLProv manifest are explained below:
+While advanced users may facilitate these underlying standards and their corresponding tooling, CWLProv is intended to be generated or consumed without any deep knowledge of their working.
+
+
+The file [metadata/manifest.json](examples/revsort-run-1/metadata/manifest.json) follows the structure defined for [Research Object Bundles](https://w3id.org/bundle/#manifest). Note that `.ro/` is instead called `metadata/` as CWLProv conforms to the derived [RO BagIt profile](https://w3id.org/ro/bagit) for storing a Research Object using [BagIt](bagit.md).
+
+The `metadata/manifest.json` file SHOULD follow the JSON structure defined here, and MUST be valid [JSON-LD](https://json-ld.org/), e.g. escaping space in file name URIs as `%20`.
+
+Consumers of CWLProv MAY parse the RO manifest as pure JSON, alternatively as JSON-LD using tools like [Apache Jena](https://jena.apache.org/) for querying or integration.
+
+The expected keys of the CWLProv manifest are explained below.
+
+### Context 
+
+The `@context` SHOULD be of the form:
 
 ```jsonld
     "@context": [
         {
-            "@base": "arcp://uuid,67f38794-d24a-435f-bd4a-0242a56a581b/metadata/"
+            "@base": "arcp://uuid,4cca2dd8-3bd5-45cb-8d34-e7f346be027e/metadata/"
         },
         "https://w3id.org/bundle/context"
     ]
 ```    
 
-This [JSON-LD context](https://json-ld.org/) enables consumers to alternatively consume the JSON file as Linked Data with absolute identifiers. 
-The key for that is the `@base` which means URIs within this JSON file are relative to the `metadata/` folder 
-within this Research Object bag, and the external JSON-LD.
+This [JSON-LD context](https://json-ld.org/) enables consumers to alternatively consume the JSON file as Linked Data with absolute identifiers, and provides mapping to namespaces of the reused standards. 
 
-Output from the [cwltool --provenance]() reference implementation should follow the JSON structure shown beyond; however interested consumers may alternatively parse it as JSON-LD with a RDF triple store like [Apache Jena](https://jena.apache.org/download/) for further querying or integration.
+The `@base` value SHOULD be based on the [arcp External-Identifier](bagit.md#External Identifier) in the `bag-info.txt`, and SHOULD be an absolute URI for the `/metadata/` folder within this bag (where this manifest is stored).
 
-The manifest lists which software version created the Research Object - we will hear more from this UUID later:
+
+## Conforming
+
+CWLProv research objects MUST declare `conformsTo` to indicate their conformance with this document. The value SHOULD match a published [CWLProv permalink](./#Versions).
+
+```jsonld
+  "conformsTo": "https://w3id.org/cwl/prov/0.3.0",
+```
+
+
+### Creator
+
+The manifest SHOULD lists which software version created the Research Object under `createdBy`:
 
 ```jsonld
     "createdBy": {
@@ -57,7 +72,11 @@ The manifest lists which software version created the Research Object - we will 
     }
 ```
 
-Secondly the manifest lists the person who "authored the run" - that is put the workflow and inputs together with cwltool
+Note that the `uri` here constitutes a particular execution on a particular machine. This identifier SHOULD be a UUID, but it MAY be `http` or `https` based to indicate a particular web portal installation.
+
+### Author
+
+The manifest SHOULD list the person who "authored the run" - e.g. who requested `cwltool` to execute the workflow with the given inputs. In a portal environment this will be the logged in user who clicked the _Run_ button.
 
 ```jsonld
     "authoredBy": {
@@ -66,9 +85,18 @@ Secondly the manifest lists the person who "authored the run" - that is put the 
     }
 ```    
 
-Note that the author of the workflow run may differ from the author of the workflow definition.
+The author SHOULD be identified at `orcid` using [ORCID identifiers](https://orcid.org/) starting with `https://orcid.org/`. The `uri` field MAY be included, e.g. `http://portal.example.com/user/2`.
 
-The list of aggregates are the main resources that this Research Object transports:
+Engines SHOULD use the value of the `ORCID` environment variable if provided, ensuring the ORCID identifier format is [valid](https://support.orcid.org/knowledgebase/articles/116780-structure-of-the-orcid-identifier).
+
+Note that the author of the _workflow run_ may differ from the author of the _workflow definition_, which can instead be indicated under aggregates.
+
+
+### Aggregates
+
+The list of `aggregates` are the main resources that this Research Object transports.
+
+**FIXME: Rewrite this section to recommendation language**
 
 ```jsonld
     "aggregates": [
