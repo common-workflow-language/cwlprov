@@ -8,18 +8,18 @@ The underlying model and information of the `
 files under `metadata/provenance` is the same, but is made available in multiple 
 serialization formats:
 
-* primary.cwlprov.provn -- `PROV-N <https://www.w3.org/TR/prov-n/>`__ Textual Provenance Notation 
-* primary.cwlprov.xml -- `PROV-XML <https://www.w3.org/TR/prov-xml/>`__
-* primary.cwlprov.json -- `PROV-JSON <https://www.w3.org/Submission/prov-json/>`__
-* primary.cwlprov.jsonld -- `PROV-O <https://www.w3.org/TR/prov-o/>`__ as `JSON-LD <https://json-ld.org/>`__ (`@context` subject to change)
-* primary.cwlprov.ttl -- `PROV-O <https://www.w3.org/TR/prov-o/>`__ as `RDF Turtle <https://www.w3.org/TR/turtle/>`__
-* primary.cwlprov.nt -- `PROV-O <https://www.w3.org/TR/prov-o/>`__ as `RDF N-Triples <https://www.w3.org/TR/n-triples/>`__
+* primary.cwlprov.provn -- [PROV-N](https://www.w3.org/TR/prov-n/] Textual Provenance Notation 
+* primary.cwlprov.xml -- [PROV-XML](https://www.w3.org/TR/prov-xml/]
+* primary.cwlprov.json -- [PROV-JSON](https://www.w3.org/Submission/prov-json/]
+* primary.cwlprov.jsonld -- [PROV-O](https://www.w3.org/TR/prov-o/] as [JSON-LD](https://json-ld.org) (`@context` subject to change)
+* primary.cwlprov.ttl -- [PROV-O](https://www.w3.org/TR/prov-o/] as [RDF Turtle](https://www.w3.org/TR/turtle/)
+* primary.cwlprov.nt -- [PROV-O](https://www.w3.org/TR/prov-o/] as [RDF N-Triples](https://www.w3.org/TR/n-triples/)
 
 See the [BagIt profile](bagit.md) for details on the CWLProv folder structure, and the [Research Object profile](ro.md) on how to declare the typing of the PROV files.
 
 CWLProv bags MUST include `primary.cwlprov.provn` conforming to this document, but MAY include other PROV formats. Conventionally provenance files that follow the PROV structures of this documents MAY be named `*.cwlprov.*`; formally this SHOULD be declared using `conformsTo` in the [RO manifest](ro.md) set to the [permalink](./#Versions), as well as their PROV format:
 
-``jsonld
+```jsonld
         {
             "uri": "provenance/primary.cwlprov.provn",
             "conformsTo": [
@@ -28,7 +28,7 @@ CWLProv bags MUST include `primary.cwlprov.provn` conforming to this document, b
             ],
             "mediatype": "text/provenance-notation; charset=\"UTF-8\""
         },
-``
+```
 
 Other provenance files (e.g. nested workflows, tool logs) can be included under `metadata/provenance/` using arbitrary filenames, for instance `wf-af755b11-0537-4321-bf82-eadf4f6792ef.cwlprov.provn`.
 
@@ -57,7 +57,11 @@ These set which vocabularies ("namespaces") are used by the CWLProv statements:
     prefix foaf <http://xmlns.com/foaf/0.1/>
 ```
 
-Note that the `arcp <https://tools.ietf.org/id/draft-soilandreyes-arcp-03.html>`__  base URI will correspond to the UUID of each master workflow run.
+The PROV trace SHOULD use the [arcp](https://tools.ietf.org/id/draft-soilandreyes-arcp-03.html) base URIs corresponding to the [Research Object @base](ro.md)
+or [BagIt External-Identifier](bagit.md#External-Identifier).
+
+The arcp base URI SHOULD be based on the UUID of the master workflow run activity identifier, if present.
+
 
 ## Account who launched cwltool
 
