@@ -1,4 +1,5 @@
 {
+    "reverse_sort": true,
     "input": {
         "class": "File",
         "location": "../data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376",
@@ -7,6 +8,5 @@
         "nameroot": "whale",
         "nameext": ".txt",
         "checksum": "sha1$327fc7aedf4f6b69a42a7c8b808dc5a7aff61376"
-    },
-    "reverse_sort": true
+    }
 }

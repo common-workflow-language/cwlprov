@@ -2,7 +2,6 @@
     "$schemas": [
         "file:///home/stain/src/cwltool/tests/wf/empty.ttl"
     ],
-    "cwlVersion": "v1.0",
     "$graph": [
         {
             "class": "Workflow",
@@ -128,5 +127,6 @@
             "stdout": "output.txt",
             "id": "#sorttool.cwl"
         }
-    ]
+    ],
+    "cwlVersion": "v1.0"
 }
