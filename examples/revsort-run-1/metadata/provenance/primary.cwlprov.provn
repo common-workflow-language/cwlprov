@@ -1,0 +1,51 @@
+document
+  prefix researchobject <arcp://uuid,34e41081-9af9-4596-a442-8e810f2b63c8/>
+  prefix orcid <https://orcid.org/>
+  prefix schema <http://schema.org/>
+  prefix wfdesc <http://purl.org/wf4ever/wfdesc#>
+  prefix cwlprov <https://w3id.org/cwl/prov#>
+  prefix ex <http://example.com/wf-4cca2dd8-3bd5-45cb-8d34-e7f346be027e#>
+  prefix input <arcp://uuid,34e41081-9af9-4596-a442-8e810f2b63c8/workflow/primary-job.json#>
+  prefix id <urn:uuid:>
+  prefix wf <arcp://uuid,34e41081-9af9-4596-a442-8e810f2b63c8/workflow/packed.cwl#>
+  prefix sha256 <nih:sha-256;>
+  prefix wfprov <http://purl.org/wf4ever/wfprov#>
+  prefix data <urn:hash::sha1:>
+  prefix foaf <http://xmlns.com/foaf/0.1/>
+  
+  agent(id:e405ecc9-5b20-4980-82ff-31f568c46416)
+  agent(orcid:0000-0001-9842-9718, [prov:type='schema:Person', prov:type='prov:Person'])
+  actedOnBehalfOf(id:e405ecc9-5b20-4980-82ff-31f568c46416, orcid:0000-0001-9842-9718, -)
+  agent(id:6190944e-fa7d-4803-a8e7-97810b17c3bc, [prov:type='prov:SoftwareAgent', prov:type='wfprov:WorkflowEngine', prov:label="cwltool 1.0.20180703025338"])
+  wasStartedBy(id:6190944e-fa7d-4803-a8e7-97810b17c3bc, -, id:e405ecc9-5b20-4980-82ff-31f568c46416, 2018-07-05T15:49:02.261555)
+  activity(id:34e41081-9af9-4596-a442-8e810f2b63c8, 2018-07-05T15:49:02.261619, -, [prov:type='wfprov:WorkflowRun', prov:label="Run of workflow/packed.cwl#main"])
+  wasAssociatedWith(id:34e41081-9af9-4596-a442-8e810f2b63c8, id:6190944e-fa7d-4803-a8e7-97810b17c3bc, wf:main)
+  wasStartedBy(id:34e41081-9af9-4596-a442-8e810f2b63c8, -, id:6190944e-fa7d-4803-a8e7-97810b17c3bc, 2018-07-05T15:49:02.261745)
+  entity(wf:main, [prov:type='prov:Plan', prov:type='wfdesc:Workflow', prov:label="Prospective provenance"])
+  entity(wf:main/rev, [prov:type='prov:Plan', prov:type='wfdesc:Process'])
+  entity(wf:main, [wfdesc:hasSubProcess='wf:main/rev', prov:label="Prospective provenance"])
+  entity(wf:main/sorted, [prov:type='prov:Plan', prov:type='wfdesc:Process'])
+  entity(wf:main, [wfdesc:hasSubProcess='wf:main/sorted', prov:label="Prospective provenance"])
+  entity(data:327fc7aedf4f6b69a42a7c8b808dc5a7aff61376, [prov:type='wfprov:Artifact'])
+  activity(id:a50b23bb-3a58-4f45-b857-e95be1487ff6, -, -, [prov:type='wfprov:ProcessRun', prov:label="Run of workflow/packed.cwl#main/rev"])
+  wasAssociatedWith(id:a50b23bb-3a58-4f45-b857-e95be1487ff6, id:6190944e-fa7d-4803-a8e7-97810b17c3bc, wf:main/rev)
+  wasStartedBy(id:a50b23bb-3a58-4f45-b857-e95be1487ff6, -, id:34e41081-9af9-4596-a442-8e810f2b63c8, 2018-07-05T15:49:02.345781)
+  agent(id:96ba30ad-1e17-4777-b2a5-ab7195a5ec13, [prov:type='prov:SoftwareAgent', cwlprov:image="debian:8", prov:label="Container execution of image debian:8"])
+  wasAssociatedWith(id:a50b23bb-3a58-4f45-b857-e95be1487ff6, id:96ba30ad-1e17-4777-b2a5-ab7195a5ec13, -)
+  used(id:a50b23bb-3a58-4f45-b857-e95be1487ff6, data:327fc7aedf4f6b69a42a7c8b808dc5a7aff61376, 2018-07-05T15:49:12.403892, [prov:role='ex:main/rev/input'])
+  entity(data:97fe1b50b4582cebc7d853796ebd62e3e163aa3f, [prov:type='wfprov:Artifact'])
+  wasGeneratedBy(data:97fe1b50b4582cebc7d853796ebd62e3e163aa3f, id:a50b23bb-3a58-4f45-b857-e95be1487ff6, 2018-07-05T15:49:13.322824, [prov:role='ex:main/rev/output'])
+  wasEndedBy(id:a50b23bb-3a58-4f45-b857-e95be1487ff6, -, id:34e41081-9af9-4596-a442-8e810f2b63c8, 2018-07-05T15:49:13.324195)
+  activity(id:beb3cf06-4159-435e-b2ad-a1ee8a28d597, -, -, [prov:type='wfprov:ProcessRun', prov:label="Run of workflow/packed.cwl#main/sorted"])
+  wasAssociatedWith(id:beb3cf06-4159-435e-b2ad-a1ee8a28d597, id:6190944e-fa7d-4803-a8e7-97810b17c3bc, wf:main/sorted)
+  wasStartedBy(id:beb3cf06-4159-435e-b2ad-a1ee8a28d597, -, id:34e41081-9af9-4596-a442-8e810f2b63c8, 2018-07-05T15:49:13.327353)
+  agent(id:2bec025d-244e-4f61-85cb-35cd5bc33f9f, [prov:type='prov:SoftwareAgent', cwlprov:image="debian:8", prov:label="Container execution of image debian:8"])
+  wasAssociatedWith(id:beb3cf06-4159-435e-b2ad-a1ee8a28d597, id:2bec025d-244e-4f61-85cb-35cd5bc33f9f, -)
+  used(id:beb3cf06-4159-435e-b2ad-a1ee8a28d597, data:97fe1b50b4582cebc7d853796ebd62e3e163aa3f, 2018-07-05T15:49:13.432551, [prov:role='ex:main/sorted/input'])
+  entity(data:b9214658cc453331b62c2282b772a5c063dbd284, [prov:type='wfprov:Artifact'])
+  wasGeneratedBy(data:b9214658cc453331b62c2282b772a5c063dbd284, id:beb3cf06-4159-435e-b2ad-a1ee8a28d597, 2018-07-05T15:49:14.316198, [prov:role='ex:main/sorted/output'])
+  wasEndedBy(id:beb3cf06-4159-435e-b2ad-a1ee8a28d597, -, id:34e41081-9af9-4596-a442-8e810f2b63c8, 2018-07-05T15:49:14.317918)
+  entity(data:b9214658cc453331b62c2282b772a5c063dbd284, [prov:type='wfprov:Artifact'])
+  wasGeneratedBy(data:b9214658cc453331b62c2282b772a5c063dbd284, id:34e41081-9af9-4596-a442-8e810f2b63c8, 2018-07-05T15:49:14.346449, [prov:role='wf:main/output'])
+  wasEndedBy(id:34e41081-9af9-4596-a442-8e810f2b63c8, -, id:6190944e-fa7d-4803-a8e7-97810b17c3bc, 2018-07-05T15:49:14.347890)
+endDocument

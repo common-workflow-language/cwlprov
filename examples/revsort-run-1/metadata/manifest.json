@@ -1,0 +1,148 @@
+{
+    "@context": [
+        {
+            "@base": "arcp://uuid,4cca2dd8-3bd5-45cb-8d34-e7f346be027e/metadata/"
+        },
+        "https://w3id.org/bundle/context"
+    ],
+    "id": "/",
+    "conformsTo": "https://w3id.org/cwl/prov/0.3.0",
+    "manifest": "manifest.json",
+    "createdOn": "2018-07-05T15:49:14.499385",
+    "createdBy": {
+        "uri": "urn:uuid:6190944e-fa7d-4803-a8e7-97810b17c3bc",
+        "name": "cwltool (unknown version)"
+    },
+    "authoredBy": {
+        "orcid": "https://orcid.org/0000-0001-9842-9718"
+    },
+    "aggregates": [
+        {
+            "bundledAs": {
+                "filename": "327fc7aedf4f6b69a42a7c8b808dc5a7aff61376",
+                "folder": "/data/32/",
+                "uri": "arcp://uuid,4cca2dd8-3bd5-45cb-8d34-e7f346be027e/data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376"
+            },
+            "uri": "urn:hash::sha1:327fc7aedf4f6b69a42a7c8b808dc5a7aff61376"
+        },
+        {
+            "bundledAs": {
+                "filename": "97fe1b50b4582cebc7d853796ebd62e3e163aa3f",
+                "folder": "/data/97/",
+                "uri": "arcp://uuid,4cca2dd8-3bd5-45cb-8d34-e7f346be027e/data/97/97fe1b50b4582cebc7d853796ebd62e3e163aa3f",
+                "createdOn": "2018-07-05T15:49:13.322824",
+                "createdBy": {
+                    "uri": "urn:uuid:6190944e-fa7d-4803-a8e7-97810b17c3bc",
+                    "name": "cwltool (unknown version)"
+                }
+            },
+            "uri": "urn:hash::sha1:97fe1b50b4582cebc7d853796ebd62e3e163aa3f"
+        },
+        {
+            "bundledAs": {
+                "filename": "b9214658cc453331b62c2282b772a5c063dbd284",
+                "folder": "/data/b9/",
+                "uri": "arcp://uuid,4cca2dd8-3bd5-45cb-8d34-e7f346be027e/data/b9/b9214658cc453331b62c2282b772a5c063dbd284",
+                "createdOn": "2018-07-05T15:49:14.346449",
+                "createdBy": {
+                    "uri": "urn:uuid:6190944e-fa7d-4803-a8e7-97810b17c3bc",
+                    "name": "cwltool (unknown version)"
+                }
+            },
+            "uri": "urn:hash::sha1:b9214658cc453331b62c2282b772a5c063dbd284"
+        },
+        {
+            "mediatype": "application/json",
+            "uri": "../snapshot/revsort-job.json",
+            "createdOn": "2018-04-04T13:29:55.721707"
+        },
+        {
+            "mediatype": "text/x+yaml; charset=\"UTF-8\"",
+            "conformsTo": "https://w3id.org/cwl/",
+            "uri": "../workflow/packed.cwl",
+            "createdOn": "2018-07-05T15:49:14.499526",
+            "createdBy": {
+                "uri": "urn:uuid:6190944e-fa7d-4803-a8e7-97810b17c3bc",
+                "name": "cwltool (unknown version)"
+            }
+        },
+        {
+            "mediatype": "text/x+yaml; charset=\"UTF-8\"",
+            "conformsTo": "https://w3id.org/cwl/",
+            "uri": "../snapshot/sorttool.cwl",
+            "createdOn": "2018-06-05T15:19:48.785496"
+        },
+        {
+            "mediatype": "text/plain; charset=\"UTF-8\"",
+            "uri": "../snapshot/whale.txt",
+            "createdOn": "2018-06-05T15:19:48.785496"
+        },
+        {
+            "mediatype": "application/json",
+            "uri": "../workflow/primary-job.json",
+            "createdOn": "2018-07-05T15:49:14.499657",
+            "createdBy": {
+                "uri": "urn:uuid:6190944e-fa7d-4803-a8e7-97810b17c3bc",
+                "name": "cwltool (unknown version)"
+            }
+        },
+        {
+            "mediatype": "text/plain; charset=\"UTF-8\"",
+            "uri": "../snapshot/hello.txt",
+            "createdOn": "2018-04-04T13:29:55.717707"
+        },
+        {
+            "mediatype": "text/x+yaml; charset=\"UTF-8\"",
+            "conformsTo": "https://w3id.org/cwl/",
+            "uri": "../snapshot/revtool.cwl",
+            "createdOn": "2018-06-05T15:19:48.781496"
+        },
+        {
+            "mediatype": "text/x+yaml; charset=\"UTF-8\"",
+            "conformsTo": "https://w3id.org/cwl/",
+            "uri": "../snapshot/revsort.cwl",
+            "createdOn": "2018-06-05T15:19:48.781496"
+        },
+        {
+            "mediatype": "text/turtle; charset=\"UTF-8\"",
+            "uri": "../snapshot/empty.ttl",
+            "createdOn": "2018-04-04T13:29:55.717707"
+        }
+    ],
+    "annotations": [
+        {
+            "about": "urn:uuid:4cca2dd8-3bd5-45cb-8d34-e7f346be027e",
+            "content": "/",
+            "uri": "urn:uuid:7cb46d7c-a398-4be8-8cf9-e500de2214d5",
+            "oa:motivatedBy": {
+                "@id": "oa:describing"
+            }
+        },
+        {
+            "about": "urn:uuid:4cca2dd8-3bd5-45cb-8d34-e7f346be027e",
+            "content": [],
+            "uri": "urn:uuid:feec65ae-4567-4728-a588-9b66072cbe3d",
+            "oa:motivatedBy": {
+                "@id": "http://www.w3.org/ns/prov#has_provenance"
+            }
+        },
+        {
+            "about": "workflow/packed.cwl",
+            "uri": "urn:uuid:77b78474-d66d-4ab1-8668-7e4782873008",
+            "oa:motivatedBy": {
+                "@id": "oa:highlighting"
+            }
+        },
+        {
+            "about": "urn:uuid:4cca2dd8-3bd5-45cb-8d34-e7f346be027e",
+            "content": [
+                "workflow/packed.cwl",
+                "workflow/primary-job.json"
+            ],
+            "uri": "urn:uuid:7612d6e5-93a0-4a33-aaa6-de817bbee6eb",
+            "oa:motivatedBy": {
+                "@id": "oa:linking"
+            }
+        }
+    ]
+}
