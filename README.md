@@ -23,12 +23,13 @@ Profile for provenance research object of a CWL workflow run.
 
 _CWLProv_ is an informal profile to define how to record provenance of a workflow run (typically [CWL](https://www.commonwl.org/) or [Nextflow](https://github.com/edgano/researchObject-Nextflow)), captured as a research object using Linked Data standards. 
 
-There are two parts to this profile:
+There are three parts to this profile:
 
-* [CWLProv Research Object](ro.md), how the resources of an execution is packaged in an [RO](http://researchobject.org/)
-* [CWLProv PROV](prov.md), how the workflow execution is modelled in [W3C PROV](https://www.w3.org/TR/prov-overview/).
+* [CWLProv BagIt](bagit.md), how the resources of an execution are _packaged_ using [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-16)
+* [CWLProv Research Object](ro.md), how the resources of an execution are _related_ in an [RO](http://researchobject.org/)
+* [CWLProv PROV](prov.md), how the workflow execution _provenance_ is modelled in [W3C PROV](https://www.w3.org/TR/prov-overview/)
 
-This repository may later also include formal profiles for validation, e.g. [BagIt profile](https://github.com/bagit-profiles/bagit-profiles) of included resources, [ShEx](http://shex.io/) for manifest content, and [PROV Template](https://provenance.ecs.soton.ac.uk/prov-template-2014-06-07/) to document PROV structures.
+This repository may later also include formal profiles for computational validation, e.g. [BagIt profile](https://github.com/bagit-profiles/bagit-profiles) of included resources, [ShEx](http://shex.io/) for manifest content, and [PROV Template](https://provenance.ecs.soton.ac.uk/prov-template-2014-06-07/) to document PROV structures.
 
 The [CWLProv white paper](https://doi.org/10.5281/zenodo.1208477) describes the background and motivation for this profile. For the avoidance of doubt, from CWLProv 0.3.0 this repository is authorative of CWLProv specifications.
 
