@@ -33,6 +33,12 @@ This repository may later also include formal profiles for validation, e.g. [Bag
 The [CWLProv white paper](https://doi.org/10.5281/zenodo.1208477) describes the background and motivation for this profile. For the avoidance of doubt, from CWLProv 0.3.0 this repository is authorative of CWLProv specifications.
 
 
+## Known implementations
+
+* [cwltool --provenance](https://github.com/common-workflow-language/cwltool/blob/master/CWLProv.rst) (reference implementation)
+* [nextflow -with-prov](https://github.com/edgano/researchObject-Nextflow) (work in progress, CWLProv without CWL)
+
+
 ## License
 
 This repository is distributed under [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
@@ -45,7 +51,17 @@ CWLProv is maintained at https://github.com/common-workflow-language/cwlprov/
 
 Feel free to raise an [issue](https://github.com/common-workflow-language/cwlprov/issues) or a [pull request](https://github.com/common-workflow-language/cwlprov/pulls) to contribute to CWLProv. Contributions are assumed to be covered by [section 5 of the Apache License](https://www.apache.org/licenses/LICENSE-2.0#contributions).
 
-You may also want to contribute a corresponding issue or pull request in the [cwltool](https://github.com/common-workflow-language/cwltool) reference implementation.
+You may also want to contribute a corresponding issue or pull request in the [cwltool](https://github.com/common-workflow-language/cwltool) reference implementation, in particular 
+[cwltool/provenance.py](https://github.com/common-workflow-language/cwltool/blob/master/cwltool/provenance.py) and documentation on [cwltool --provenance](https://github.com/common-workflow-language/cwltool/blob/master/CWLProv.rst) support.
+
+For an informal CWLProv discussion with other developers, join the (relatively quiet) Gitter room [common-workflow-language/cwlprov](https://gitter.im/common-workflow-language/cwlprov), or the 
+(more busy) [common-workflow-language/common-workflow-language](https://gitter.im/common-workflow-language/common-workflow-language).
+
+### Code of Conduct
+
+The CWL Project is dedicated to providing a harassment-free experience for everyone, regardless of gender, gender identity and expression, sexual orientation, disability, physical appearance, body size, age, race, or religion. We do not tolerate harassment of participants in any form. This code of conduct applies to all CWL Project spaces, including the Google Group, the Gitter chat room, the Google Hangouts chats, both online and off. Anyone who violates this code of conduct may be sanctioned or expelled from these spaces at the discretion of the leadership team.
+
+For more details, see our [Code of Conduct](https://github.com/common-workflow-language/common-workflow-language/blob/master/CODE_OF_CONDUCT.md).
 
 
 ## Requirements Language
@@ -57,6 +73,11 @@ as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 
 ## Versions
+
+* 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) First implementation [merged](https://github.com/common-workflow-language/cwltool/pull/676) into cwltool. (declares `conformsTo` on `/` and PROV files)
+* 0.2.0 [https://w3id.org/cwl/prov/0.2.0](https://w3id.org/cwl/prov/0.2.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1215611](https://doi.org/10.5281/zenodo.1215611) (declares `conformsTo` as https://doi.org/10.5281/zenodo.1208477 on PROV files)
+* 0.1.0 [https://w3id.org/cwl/prov/0.1.0](https://w3id.org/cwl/prov/0.1.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1208478](https://doi.org/10.5281/zenodo.1208478) (no self-declaration of CWLProv)
+
 
 CWLProv is versioned using [Semantic Versioning](https://semver.org/spec/v2.0.0.html), following the pattern `MAJOR.MINOR.PATCH` (e.g. `1.2.0`).
 
@@ -79,8 +100,4 @@ _Unless a patch version is affecting the output, the declared profile SHOULD hav
 The current version of CWLProv have major `0`, indicating that [disruptive changes](https://semver.org/spec/v2.0.0.html#spec-item-4) may occur before the profile stabilize at `1.x.y`.
 
 Each CWLProv version has a `w3id.org` _permalink_ that SHOULD be declared inside the [RO](ro.md) to indicate its conformance. 
-
-* 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) First implementation [merged](https://github.com/common-workflow-language/cwltool/pull/676) into cwltool. (declares `conformsTo` on `/` and PROV files)
-* 0.2.0 [https://w3id.org/cwl/prov/0.2.0](https://w3id.org/cwl/prov/0.2.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1215611](https://doi.org/10.5281/zenodo.1215611) (declares `conformsTo` as https://doi.org/10.5281/zenodo.1208477 on PROV files)
-* 0.1.0 [https://w3id.org/cwl/prov/0.1.0](https://w3id.org/cwl/prov/0.1.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1208478](https://doi.org/10.5281/zenodo.1208478) (no self-declaration of CWLProv)
 
