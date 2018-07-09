@@ -8,12 +8,12 @@ The underlying model and information of the `
 files under `metadata/provenance` is the same, but is made available in multiple 
 serialization formats:
 
-* primary.cwlprov.provn -- [PROV-N](https://www.w3.org/TR/prov-n/] Textual Provenance Notation 
-* primary.cwlprov.xml -- [PROV-XML](https://www.w3.org/TR/prov-xml/]
-* primary.cwlprov.json -- [PROV-JSON](https://www.w3.org/Submission/prov-json/]
-* primary.cwlprov.jsonld -- [PROV-O](https://www.w3.org/TR/prov-o/] as [JSON-LD](https://json-ld.org) (`@context` subject to change)
-* primary.cwlprov.ttl -- [PROV-O](https://www.w3.org/TR/prov-o/] as [RDF Turtle](https://www.w3.org/TR/turtle/)
-* primary.cwlprov.nt -- [PROV-O](https://www.w3.org/TR/prov-o/] as [RDF N-Triples](https://www.w3.org/TR/n-triples/)
+* primary.cwlprov.provn -- [PROV-N](https://www.w3.org/TR/prov-n/) Textual Provenance Notation 
+* primary.cwlprov.xml -- [PROV-XML](https://www.w3.org/TR/prov-xml/)
+* primary.cwlprov.json -- [PROV-JSON](https://www.w3.org/Submission/prov-json/)
+* primary.cwlprov.jsonld -- [PROV-O](https://www.w3.org/TR/prov-o/) as [JSON-LD](https://json-ld.org) (`@context` subject to change)
+* primary.cwlprov.ttl -- [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF Turtle](https://www.w3.org/TR/turtle/)
+* primary.cwlprov.nt -- [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF N-Triples](https://www.w3.org/TR/n-triples/)
 
 See the [BagIt profile](bagit.md) for details on the CWLProv folder structure, and the [Research Object profile](ro.md) on how to declare the typing of the PROV files.
 
