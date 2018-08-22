@@ -36,8 +36,8 @@ It is RECOMMENDED to use the following `conformsTo` and `mediatype` values for t
 
 | Format | conformsTo | mediatype | extension |
 | ------ | ---------- | --------- | ----------|
-| [PROV-N](https://www.w3.org/TR/prov-n/) | http://www.w3.org/TR/2013/REC-prov-n-20130430/| `text/provenance-notation; charset="UTF-8"` | .provn |
-| [PROV-XML](https://www.w3.org/TR/prov-xml/) | http://www.w3.org/TR/2013/NOTE-prov-xml-20130430/| `application/xml` | .xml |
+| [PROV-N](https://www.w3.org/TR/prov-n/) | http://www.w3.org/TR/2013/REC-prov-n-20130430/| `text/provenance-notation; charset="UTF-8"` | `.provn` |
+| [PROV-XML](https://www.w3.org/TR/prov-xml/) | http://www.w3.org/TR/2013/NOTE-prov-xml-20130430/| `application/xml` | `.xml` |
 | [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF Turtle](https://www.w3.org/TR/turtle/) | http://www.w3.org/TR/2013/REC-prov-o-20130430/ | `text/turtle; charset="UTF-8"` | `.ttl` |
 | [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF N-Triples](https://www.w3.org/TR/n-triples/) | http://www.w3.org/TR/2013/REC-prov-o-20130430/ | `application/n-triples` | `.nt` |
 | [PROV-O](https://www.w3.org/TR/prov-o/) as [JSON-LD](https://json-ld.org) | http://www.w3.org/TR/2013/REC-prov-o-20130430/ | `application/ld+json` | `.jsonld` |
@@ -222,7 +222,7 @@ Finally the overall workflow `#main` also ends:
 Note that the end of the outer `cwltool` activity is not recorded, as cwltool is still running at the point of writing out this provenance.
 
 
-# Nested workflows
+## Nested workflows
 
 If a particular step is a [nested workflow](https://www.commonwl.org/user_guide/22-nested-workflows/), 
 then the inner provenance of the nested workflow runs SHOULD be included in a separate CWLProv provenance file.
@@ -348,11 +348,11 @@ It is RECOMMENDED that such file entities, if declared, are referenced from
 the corresponding `used` and `wasGeneratedBy` instead of by their content-based
 entity:
 
-  activity(id:284408d9-9f21-4c63-b1c0-fbed7d0e3180, -, -, 
-    [prov:type='wfprov:ProcessRun', prov:label="Run of workflow/packed.cwl#main/step1"])
-  wasGeneratedBy(id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, 
-    id:284408d9-9f21-4c63-b1c0-fbed7d0e3180, 2018-08-22T13:55:13.034450,
-    [prov:role='wf:main/step1/file1'])
+    activity(id:284408d9-9f21-4c63-b1c0-fbed7d0e3180, -, -, 
+        [prov:type='wfprov:ProcessRun', prov:label="Run of workflow/packed.cwl#main/step1"])
+    wasGeneratedBy(id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, 
+        id:284408d9-9f21-4c63-b1c0-fbed7d0e3180, 2018-08-22T13:55:13.034450,
+        [prov:role='wf:main/step1/file1'])
 
 CWLProv consumers should note that the same
 content (by checksum) may appear as different file entities for different steps.
@@ -371,15 +371,15 @@ primary file.
 In CWLProv any secondary files SHOULD be declared as a `cwlprov:SecondaryFile` kind of
 derivation from the primary file entity.
 
-  entity(id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, 
-    [prov:type='wf4ever:File', prov:type='wfprov:Artifact', 
-      cwlprov:basename="f.txt", cwlprov:nameroot="f", cwlprov:nameext=".txt"])
+    entity(id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, 
+        [prov:type='wf4ever:File', prov:type='wfprov:Artifact', 
+        cwlprov:basename="f.txt", cwlprov:nameroot="f", cwlprov:nameext=".txt"])
 
-  wasDerivedFrom(id:f233d70d-614c-4dbc-95b9-e7a10536d866, 
-    id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, -, -, -, [prov:type='cwlprov:SecondaryFile'])
-  entity(id:f233d70d-614c-4dbc-95b9-e7a10536d866, 
-    [prov:type='wf4ever:File', prov:type='wfprov:Artifact', 
-      cwlprov:basename="f.txt.idx", cwlprov:nameroot="f.txt", cwlprov:nameext=".idx"])
+    wasDerivedFrom(id:f233d70d-614c-4dbc-95b9-e7a10536d866, 
+        id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, -, -, -, [prov:type='cwlprov:SecondaryFile'])
+    entity(id:f233d70d-614c-4dbc-95b9-e7a10536d866, 
+        [prov:type='wf4ever:File', prov:type='wfprov:Artifact', 
+        cwlprov:basename="f.txt.idx", cwlprov:nameroot="f.txt", cwlprov:nameext=".idx"])
 
 When the `SecondaryFile` relation is used, both the primary and secondary file 
 MUST have `cwlprov:basename` declared. It is common, but not required, that
@@ -408,26 +408,28 @@ and the BagIt manifest checksums to recreate a CWL `class:File` representation.
 
 For example from the above:
 
-    {
-        "file1": {
-            "class": "File",
-            "location": "data/01/01f2a6f5-425c-44f4-8b4b-74b7885d216a",
-            "checksum": "sha1$01f2a6f5-425c-44f4-8b4b-74b7885d216a"
-            "basename": "f.txt",
-            "nameroot": "f",
-            "nameext": ".txt",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "location": "data/a3/a3db5c13ff90a36963278c6a39e4ee3c22e2a436",
-                    "checksum": "sha1$a3db5c13ff90a36963278c6a39e4ee3c22e2a436"
-                    "basename": "f.txt.idx",
-                    "nameroot": "f.txt",
-                    "nameext": ".idx",
-                }
-            ],
-        }
+```json
+{
+    "file1": {
+        "class": "File",
+        "location": "data/01/01f2a6f5-425c-44f4-8b4b-74b7885d216a",
+        "checksum": "sha1$01f2a6f5-425c-44f4-8b4b-74b7885d216a"
+        "basename": "f.txt",
+        "nameroot": "f",
+        "nameext": ".txt",
+        "secondaryFiles": [
+            {
+                "class": "File",
+                "location": "data/a3/a3db5c13ff90a36963278c6a39e4ee3c22e2a436",
+                "checksum": "sha1$a3db5c13ff90a36963278c6a39e4ee3c22e2a436"
+                "basename": "f.txt.idx",
+                "nameroot": "f.txt",
+                "nameext": ".idx",
+            }
+        ],
     }
+}
+```    
 
 Note how above `data/a3/a3db…436` can be a secondary file 
 for `data/01/01f2…16a` even if the actual files do not have 
@@ -510,7 +512,7 @@ only the pair key is authorative as a file might be member of
 multiple directories under different names.
 
 
-## Recreating a CWL directory listing
+### Recreating a CWL directory listing
 
 It is possible to recreate a CWL directory listing using the 
 CWLProv relations above, combined with the `bundledAs` 
@@ -519,38 +521,40 @@ and the BagIt manifest checksums to recreate a CWL `class:File` representation.
 
 From the example above:
 
-    {
-        "dir": {
-            "class": "Directory",
-            "basename": "dir",
-            "listing": [
-                {
-                    "class": "File",
-                    "basename": "a.txt",
-                    "location": "../data/0a/0a4d55a8d778e5022fab701977c5d840bbc486d0",
-                    "checksum": "sha1$0a4d55a8d778e5022fab701977c5d840bbc486d0"
-                },
-                {
-                    "class": "File",
-                    "basename": "b",
-                    "location": "../data/86/86f7e437faa5a7fce15d1ddcb9eaeaea377667b8",
-                    "checksum": "sha1$86f7e437faa5a7fce15d1ddcb9eaeaea377667b8"
-                },
-                {
-                    "class": "Directory",
-                    "basename": "c",
-                    listing: [
-                        {
-                            "class": "File",
-                            "basename": "d.txt",
-                            "location": "../data/35/35693c2208d9f20c04eb452737b9bfe32be747ce",
-                            "checksum": "sha1$35693c2208d9f20c04eb452737b9bfe32be747ce"
-                        }
-                    ]
-                }
-            ]
-        }
+```json
+{
+    "dir": {
+        "class": "Directory",
+        "basename": "dir",
+        "listing": [
+            {
+                "class": "File",
+                "basename": "a.txt",
+                "location": "../data/0a/0a4d55a8d778e5022fab701977c5d840bbc486d0",
+                "checksum": "sha1$0a4d55a8d778e5022fab701977c5d840bbc486d0"
+            },
+            {
+                "class": "File",
+                "basename": "b",
+                "location": "../data/86/86f7e437faa5a7fce15d1ddcb9eaeaea377667b8",
+                "checksum": "sha1$86f7e437faa5a7fce15d1ddcb9eaeaea377667b8"
+            },
+            {
+                "class": "Directory",
+                "basename": "c",
+                "listing": [
+                    {
+                        "class": "File",
+                        "basename": "d.txt",
+                        "location": "../data/35/35693c2208d9f20c04eb452737b9bfe32be747ce",
+                        "checksum": "sha1$35693c2208d9f20c04eb452737b9bfe32be747ce"
+                    }
+                ]
+            }
+        ]
     }
+}
+```
 
 Note that using the such listings files can be provided as a directory
 structure even though the actual files are organized in a different hierarchy
