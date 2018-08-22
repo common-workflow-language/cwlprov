@@ -421,10 +421,10 @@ For example from the above:
             {
                 "class": "File",
                 "location": "data/a3/a3db5c13ff90a36963278c6a39e4ee3c22e2a436",
-                "checksum": "sha1$a3db5c13ff90a36963278c6a39e4ee3c22e2a436"
+                "checksum": "sha1$a3db5c13ff90a36963278c6a39e4ee3c22e2a436",
                 "basename": "f.txt.idx",
                 "nameroot": "f.txt",
-                "nameext": ".idx",
+                "nameext": ".idx"
             }
         ],
     }
