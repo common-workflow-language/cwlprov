@@ -317,7 +317,7 @@ Provenance links to paths within the CWLProv Bag MUST use the same
 base URI (e.g. `arcp://uuid,73eab018-7b36-4f84-a845-aca8073bd46c/`)
 as in the primary workflow provenance and research object manifest.
 
-## File extensions
+## Files
 
 If a step uses or generates a _file_ with a particular filename, then this SHOULD 
 be indicated as a specialization of the c content-based entity:
@@ -394,10 +394,15 @@ Note that the two content-based entities are not directly related in the provena
 as different manifestations as files may have different secondary files and 
 different `basename` patterns.
 
+Note that secondary files are not normally seen directly `used` or `wasGeneratedBy` by
+activities dealing with their primary files, however this can
+often be reasonably assumed.
+
+
 ### Referencing secondary files from job files
 
 The CWLProv relations `specializationOf`, `wasDerivedFrom` 
-wih `wf4ever:File` entities as above can be combined with 
+with `wf4ever:File` entities as above can be combined with 
 the `bundledAs` reference in the Research Object `metadata/manifest.json` 
 and the BagIt manifest checksums to recreate a CWL `class:File` representation.
 
@@ -427,4 +432,128 @@ For example from the above:
 Note how above `data/a3/a3db…436` can be a secondary file 
 for `data/01/01f2…16a` even if the actual files do not have 
 any extensions and are not in the same directory.
+
+## Directories
+
+A [CWL Directory](https://www.commonwl.org/v1.0/CommandLineTool.html#Directory) 
+represent an unordered collection of named files or directories.
+
+In CWLProv a directory is represented as a [PROV Dictionary](https://www.w3.org/TR/prov-dictionary/)
+of type `ro:Folder` using the relative filenames as keys to [CWL Files](#Files).
+
+    entity(id:77154164-d82c-4266-82a6-78f2f6d0218c, 
+      [prov:type='wfprov:Artifact', prov:type='prov:Collection', 
+       prov:type='prov:Dictionary', prov:type='ro:Folder',
+       cwlprov:basename="dir",
+       prov:hadDictionaryMember='id:a8a6f9fb-5c51-40bb-96bb-20aa3322d294', 
+       prov:hadDictionaryMember='id:0a867366-b749-43d9-a40b-565d8cf62975', 
+       prov:hadDictionaryMember='id:28f0d087-308b-4c91-bb02-7548ccc59673'])
+
+    entity(id:a8a6f9fb-5c51-40bb-96bb-20aa3322d294, 
+      [prov:type='prov:KeyEntityPair', prov:pairKey="a.txt", 
+       prov:pairEntity='id:c9962818-63f5-4f26-9020-f59799000602'])
+    entity(id:c9962818-63f5-4f26-9020-f59799000602, 
+      [prov:type='wfprov:Artifact', prov:type='wf4ever:File', cwlprov:basename="a.txt"])  
+    specializationOf(id:c9962818-63f5-4f26-9020-f59799000602, data:0a4d55a8d778e5022fab701977c5d840bbc486d0)
+
+    entity(id:0a867366-b749-43d9-a40b-565d8cf62975, 
+      [prov:type='prov:KeyEntityPair', prov:pairKey="b", 
+       prov:pairEntity='id:8afd9368-b1f5-4dd6-baf5-940e81164c92'])
+    entity(id:8afd9368-b1f5-4dd6-baf5-940e81164c92, 
+      [prov:type='wfprov:Artifact', prov:type='wf4ever:File', cwlprov:basename="b"])
+    # …
+
+Note that a directory may contain subdirectories, described in the same way:
+
+    entity(id:28f0d087-308b-4c91-bb02-7548ccc59673,   
+      [prov:type='prov:KeyEntityPair', prov:pairKey="c", 
+       prov:pairEntity='id:8a6db3a0-89e5-48b7-b7d0-63960dfa2e55'])
+
+    entity(id:8a6db3a0-89e5-48b7-b7d0-63960dfa2e55, 
+      [prov:type='wfprov:Artifact', prov:type='prov:Collection',
+       prov:type='prov:Dictionary', prov:type='ro:Folder',
+       cwlprov:basename="c",
+       prov:hadDictionaryMember='id:d5467842-7cb2-4f3f-8d71-fbd0760ca0a3'])
+
+    entity(id:d5467842-7cb2-4f3f-8d71-fbd0760ca0a3, 
+      [prov:type='prov:KeyEntityPair', prov:pairKey="d.txt", 
+       prov:pairEntity='id:098e70a3-5078-440d-98ab-4fb8b674384e'])
+    # …
+
+Graphically we can imagine this as:
+
+    ./                    entity 77154164-d82c-4266-82a6-78f2f6d0218c
+      a.txt               entity c9962818-63f5-4f26-9020-f59799000602
+        "Hello World"   checksum 0a4d55a8d778e5022fab701977c5d840bbc486d0
+      b                   entity 8afd9368-b1f5-4dd6-baf5-940e81164c92
+        …                      …
+      c/                  entity 8a6db3a0-89e5-48b7-b7d0-63960dfa2e55
+        d.txt             entity 098e70a3-5078-440d-98ab-4fb8b674384e
+          …                    …
+
+Note that the `prov:KeyEntityPair` are entities to indicate the binding
+of a file or directory in a parent directory, and as an intermediary 
+their UUID will only show up as part of describing the directory.
+
+CWLProv clients describing directories SHOULD also provide the collection 
+membership of the directory content:
+
+    hadMember(id:77154164-d82c-4266-82a6-78f2f6d0218c, id:c9962818-63f5-4f26-9020-f59799000602)
+    hadMember(id:77154164-d82c-4266-82a6-78f2f6d0218c, id:8afd9368-b1f5-4dd6-baf5-940e81164c92)
+    hadMember(id:77154164-d82c-4266-82a6-78f2f6d0218c, id:8a6db3a0-89e5-48b7-b7d0-63960dfa2e55)
+    
+    hadMember(id:8a6db3a0-89e5-48b7-b7d0-63960dfa2e55, id:098e70a3-5078-440d-98ab-4fb8b674384e)
+
+With the short-cut `hadMember` the filenames are not indicated. 
+Note that although `cwlprov:basename` of the members might match the `prov:pairKey`, 
+only the pair key is authorative as a file might be member of 
+multiple directories under different names.
+
+
+## Recreating a CWL directory listing
+
+It is possible to recreate a CWL directory listing using the 
+CWLProv relations above, combined with the `bundledAs` 
+reference in the Research Object `metadata/manifest.json` 
+and the BagIt manifest checksums to recreate a CWL `class:File` representation.
+
+From the example above:
+
+    {
+        "dir": {
+            "class": "Directory",
+            "basename": "dir",
+            "listing": [
+                {
+                    "class": "File",
+                    "basename": "a.txt",
+                    "location": "../data/0a/0a4d55a8d778e5022fab701977c5d840bbc486d0",
+                    "checksum": "sha1$0a4d55a8d778e5022fab701977c5d840bbc486d0"
+                },
+                {
+                    "class": "File",
+                    "basename": "b",
+                    "location": "../data/86/86f7e437faa5a7fce15d1ddcb9eaeaea377667b8",
+                    "checksum": "sha1$86f7e437faa5a7fce15d1ddcb9eaeaea377667b8"
+                },
+                {
+                    "class": "Directory",
+                    "basename": "c",
+                    listing: [
+                        {
+                            "class": "File",
+                            "basename": "d.txt",
+                            "location": "../data/35/35693c2208d9f20c04eb452737b9bfe32be747ce",
+                            "checksum": "sha1$35693c2208d9f20c04eb452737b9bfe32be747ce"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+
+Note that using the such listings files can be provided as a directory
+structure even though the actual files are organized in a different hierarchy
+within the CWLProv bag, effectively allowing the same value to be present in 
+multiple directories without duplication.
 
