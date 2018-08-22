@@ -12,6 +12,8 @@ in which case their filenames SHOULD have the same basename (ignoring extensions
 and their content SHOULD have corresponding structures and MUST use the same identifiers 
 for workflow activities and data entities.
 
+## Formats
+
 Provenance files for the top workflow run MUST be present with a file name starting with `primary`.
 CWLProv bags MUST at include `primary.cwlprov.provn` conforming to this document, but 
 MAY include other PROV formats. 
@@ -84,7 +86,7 @@ CWLProv statements:
 
 The PROV trace SHOULD use the [arcp](https://tools.ietf.org/id/draft-soilandreyes-arcp-03.html) 
 base URIs corresponding to the [Research Object @base](ro.md)
-or [BagIt External-Identifier](bagit.md#External-Identifier).
+or [BagIt External-Identifier](bagit.md#External-Identifier) to refer to files within the bag.
 
 The arcp base URI SHOULD be based on the UUID of the master workflow run activity identifier, if present.
 
@@ -174,8 +176,8 @@ Data files within a workflow execution are identified using `urn:hash:sha1:` URI
     entity(data:53870991af88a6d678cbeed3255bb65993c52925, [prov:type='wfprov:Artifact', prov:value="Hei7"])
 
 Small values (typically those provided on the command line may be present as `prov:value`. The corresponding 
-`data/` file within the Research Object has a content-addressable filename based on the checksum; but it is also 
-possible to look up this independent from the corresponding `metadata/manifest.json` aggregation:
+`data/` file within the Research Object has a content-addressable filename based on the checksum; CWLProv consumers SHOULD
+look up this from the corresponding `metadata/manifest.json` aggregation:
 
 ```jsonld
     "aggregates": [
@@ -191,7 +193,7 @@ possible to look up this independent from the corresponding `metadata/manifest.j
 
 ## Data outputs (generation)
 
-Similarly a step typically generates some data, here `response`:
+Similarly, a step typically generates some data, here `response`:
 
     activity(id:a583b025-9a16-49ce-8515-f3249eb2aacf, -, -, [prov:type='wfprov:ProcessRun', prov:label="Run of workflow/packed.cwl#main/step0"])
     wasGeneratedBy(data:53870991af88a6d678cbeed3255bb65993c52925, id:a583b025-9a16-49ce-8515-f3249eb2aacf, 2018-04-16T18:27:09.438236, [prov:role='wf:main/step0/response'])
@@ -219,6 +221,210 @@ Finally the overall workflow `#main` also ends:
 
 Note that the end of the outer `cwltool` activity is not recorded, as cwltool is still running at the point of writing out this provenance.
 
-Currently the provenance trace do not distinguish executions within nested workflows; it is planned that these will be tracked in separate files under `metadata/provenance/`.
 
+# Nested workflows
+
+If a particular step is a [nested workflow](https://www.commonwl.org/user_guide/22-nested-workflows/), 
+then the inner provenance of the nested workflow runs SHOULD be included in a separate CWLProv provenance file.
+
+In the parent workflow trace, the fact that more details of the step is expanded in a different PROV file SHOULD be declared with the `prov:has_provenance` attribute:
+    
+    prefix id <urn:uuid:>
+    prefix provenance <arcp://uuid,73eab018-7b36-4f84-a845-aca8073bd46c/metadata/provenance/>
+
+    agent(id:a606d227-bf10-4479-8d11-823bb932bbac, 
+        [prov:type='wfprov:WorkflowEngine', prov:type='prov:SoftwareAgent', 
+         prov:label="cwltool 1.0.20180817162414"])
+
+    activity(id:73eab018-7b36-4f84-a845-aca8073bd46c, 2018-08-21T15:20:35.059920, -, 
+        [prov:type='wfprov:WorkflowRun', prov:label="Run of workflow/packed.cwl#main"])
+    wasStartedBy(id:73eab018-7b36-4f84-a845-aca8073bd46c, -, id:a606d227-bf10-4479-8d11-823bb932bbac, 2018-08-21T15:20:35.060038)
+
+    activity(id:e79fc8dc-6e40-4236-b22c-41fee22947a9, -, -, 
+         [prov:type='wfprov:ProcessRun', prov:label="Run of workflow/packed.cwl#main/compile"])
+    wasStartedBy(id:e79fc8dc-6e40-4236-b22c-41fee22947a9, -, id:73eab018-7b36-4f84-a845-aca8073bd46c, 2018-08-21T15:20:35.163189)
+
+    activity(id:e79fc8dc-6e40-4236-b22c-41fee22947a9, -, -, 
+         [prov:has_provenance='provenance:workflow_compile.e79fc8dc-6e40-4236-b22c-41fee22947a9.cwlprov.provn',
+          prov:has_provenance='provenance:workflow_compile.e79fc8dc-6e40-4236-b22c-41fee22947a9.cwlprov.ttl'
+    ])
+
+Traces of nested workflow SHOULD be stored under `metadata/provenance` (or a subdirectory there of), 
+and that their `conformsTo` and `mediatype` SHOULD conform to the 
+[CWLProv formats](#Formats). It is RECOMMENDED that the file name is 
+derived from the activity in the parent workflow. In the example above the main workflow 
+`urn:uuid:73eab018-7b36-4f84-a845-aca8073bd46c` (started by the engine) has started the activity 
+`urn:uuid:e79fc8dc-6e40-4236-b22c-41fee22947a9` of step `compile`, which has a provenance 
+trace in `metadata/provenance/workflow_compile.e79fc8dc-6e40-4236-b22c-41fee22947a9.cwlprov.provn` and 
+`…947a9.cwlprov.ttl`.
+
+The attribute `prov:has_provenance` SHOULD also be used for any kind of provenance 
+files in other formats (e.g. log file), even for non-workflow steps. 
+CWLProv consumers SHOULD check the `conformsTo` attribute in the 
+[Research Object manifest](ro.md) rather than attempting to decompose the filename.
+
+The RO manifest SHOULD include an _annotation_ with 
+motivation `http://www.w3.org/ns/prov#has_provenance` to indicate
+which provenance files further describe the step activity, for instance:
+
+    {
+        "about": "urn:uuid:e79fc8dc-6e40-4236-b22c-41fee22947a9",
+        "content": [
+            "provenance/workflow_20compile.e79fc8dc-6e40-4236-b22c-41fee22947a9.cwlprov.provn",
+            "provenance/workflow_20compile.e79fc8dc-6e40-4236-b22c-41fee22947a9.cwlprov.ttl",
+        ],
+        "oa:motivatedBy": {
+            "@id": "http://www.w3.org/ns/prov#has_provenance"
+        }
+    }
+
+It is RECOMMENDED to generate separate provenance trace files for each 
+nested workflow execution, e.g. as part of scatter operation or a 
+workflow reused in different steps.
+
+For nested workflows, the identifier for the step activity (here `urn:uuid:e79fc8dc-6e40-4236-b22c-41fee22947a9`) 
+SHOULD re-appear in the data of nested CWLProv files as a `wfprov:WorkflowRun` activity, e.g.:
+
+    prefix id <urn:uuid:>
+    agent(id:a606d227-bf10-4479-8d11-823bb932bbac, 
+        [prov:type='wfprov:WorkflowEngine', prov:type='prov:SoftwareAgent', 
+         prov:label="cwltool 1.0.20180817162414"])
+
+    activity(id:e79fc8dc-6e40-4236-b22c-41fee22947a9, 2018-08-21T15:20:35.089187, -, 
+        [prov:type='wfprov:WorkflowRun', prov:label="Run of workflow/packed.cwl#compile.cwl"])
+    wasStartedBy(id:e79fc8dc-6e40-4236-b22c-41fee22947a9, -, id:a606d227-bf10-4479-8d11-823bb932bbac, 2018-08-21T15:20:35.089303)
+
+The nested workflow provenance trace
+follows the same CWLProv pattern as the primary workflow trace.  Note in the example 
+above that from the perspective of the nested workflow provenance, 
+`e79fc8dc…` is a `wfprov:WorkflowRun` that `wasStartedBy` the engine
+`a606d227…`, not a `wfprov:ProcessRun` started by the parent workflow
+activity `73eab018…` as depicted in the primary provenance trace.  
+
+It is NOT REQUIRED that the nested workflow activity `wasStartedBy`
+by the same engine as the primary workflow, for instance the nested workflow
+might have been executed on a different node.
+
+The nested workflow trace SHOULD declare its relevant prospective provenance
+`prov:Plan` entities, even if this would duplicate parts of the prospective
+ provenance in the parent workflow provenance.
+
+Nested workflows may have steps that themselves are nested workflows,
+which SHOULD be logged in separate CWLProv provenance file, linked
+with `prov:has_provenance` attribute from the intermediate provenance file.
+
+Provenance links to paths within the CWLProv Bag MUST use the same
+base URI (e.g. `arcp://uuid,73eab018-7b36-4f84-a845-aca8073bd46c/`)
+as in the primary workflow provenance and research object manifest.
+
+## File extensions
+
+If a step uses or generates a _file_ with a particular filename, then this SHOULD 
+be indicated as a specialization of the c content-based entity:
+
+    prefix id <urn:uuid:>
+    prefix data <urn:hash::sha1:>
+
+    entity(data:03cfd743661f07975fa2f1220c5194cbaff48451, [prov:type='wfprov:Artifact'])
+    specializationOf(id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, data:03cfd743661f07975fa2f1220c5194cbaff48451)
+
+The specializing entity SHOULD be of type `wf4ever:File` and 
+SHOULD declare the filename (as seen by the CWL tool) 
+without a path using the attribute `cwlprov:basename` 
+corresponding to CWL's [basename](https://www.commonwl.org/v1.0/CommandLineTool.html#File)
+attribute:
+
+    prefix cwlprov <https://w3id.org/cwl/prov#>
+    prefix wf4ever <http://purl.org/wf4ever/wf4ever#>
+    entity(id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, 
+      [prov:type='wf4ever:File', prov:type='wfprov:Artifact', 
+       cwlprov:basename="f.txt", cwlprov:nameroot="f", cwlprov:nameext=".txt"])
+
+Additional attributes `cwlprov:nameroot` and `cwlprov:nameext` MAY be included 
+as shown above, corresponding to `nameroot` and `nameext` fields in a 
+[CWL File](https://www.commonwl.org/v1.0/CommandLineTool.html#File).
+
+It is RECOMMENDED that such file entities, if declared, are referenced from
+the corresponding `used` and `wasGeneratedBy` instead of by their content-based
+entity:
+
+  activity(id:284408d9-9f21-4c63-b1c0-fbed7d0e3180, -, -, 
+    [prov:type='wfprov:ProcessRun', prov:label="Run of workflow/packed.cwl#main/step1"])
+  wasGeneratedBy(id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, 
+    id:284408d9-9f21-4c63-b1c0-fbed7d0e3180, 2018-08-22T13:55:13.034450,
+    [prov:role='wf:main/step1/file1'])
+
+CWLProv consumers should note that the same
+content (by checksum) may appear as different file entities for different steps.
+In the case of no direct `wasGeneratedBy`—`use` derivations in a provenance trace,
+consumers could consider a common `specializationOf` entity as a
+hint of indirect provenance derivations (e.g. unpacked from an archive or 
+up/downloaded through a database).
+
+
+## Secondary files
+
+A [CWL File](https://www.commonwl.org/v1.0/CommandLineTool.html#File) may have
+`secondaryFiles`, additional files or directories that are associated with the 
+primary file.
+
+In CWLProv any secondary files SHOULD be declared as a `cwlprov:SecondaryFile` kind of
+derivation from the primary file entity.
+
+  entity(id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, 
+    [prov:type='wf4ever:File', prov:type='wfprov:Artifact', 
+      cwlprov:basename="f.txt", cwlprov:nameroot="f", cwlprov:nameext=".txt"])
+
+  wasDerivedFrom(id:f233d70d-614c-4dbc-95b9-e7a10536d866, 
+    id:01f2a6f5-425c-44f4-8b4b-74b7885d216a, -, -, -, [prov:type='cwlprov:SecondaryFile'])
+  entity(id:f233d70d-614c-4dbc-95b9-e7a10536d866, 
+    [prov:type='wf4ever:File', prov:type='wfprov:Artifact', 
+      cwlprov:basename="f.txt.idx", cwlprov:nameroot="f.txt", cwlprov:nameext=".idx"])
+
+When the `SecondaryFile` relation is used, both the primary and secondary file 
+MUST have `cwlprov:basename` declared. It is common, but not required, that
+part of a secondary file's filename (here `nameroot`) correspond
+with (part of) the primary file's `basename` field.
+
+The secondary file SHOULD have a specialization of its own content-based entity:
+
+    specializationOf(id:f233d70d-614c-4dbc-95b9-e7a10536d866, data:a3db5c13ff90a36963278c6a39e4ee3c22e2a436)
+
+Note that the two content-based entities are not directly related in the provenance trace, 
+as different manifestations as files may have different secondary files and 
+different `basename` patterns.
+
+### Referencing secondary files from job files
+
+The CWLProv relations `specializationOf`, `wasDerivedFrom` 
+wih `wf4ever:File` entities as above can be combined with 
+the `bundledAs` reference in the Research Object `metadata/manifest.json` 
+and the BagIt manifest checksums to recreate a CWL `class:File` representation.
+
+For example from the above:
+
+    {
+        "file1": {
+            "class": "File",
+            "location": "data/01/01f2a6f5-425c-44f4-8b4b-74b7885d216a",
+            "checksum": "sha1$01f2a6f5-425c-44f4-8b4b-74b7885d216a"
+            "basename": "f.txt",
+            "nameroot": "f",
+            "nameext": ".txt",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "location": "data/a3/a3db5c13ff90a36963278c6a39e4ee3c22e2a436",
+                    "checksum": "sha1$a3db5c13ff90a36963278c6a39e4ee3c22e2a436"
+                    "basename": "f.txt.idx",
+                    "nameroot": "f.txt",
+                    "nameext": ".idx",
+                }
+            ],
+        }
+    }
+
+Note how above `data/a3/a3db…436` can be a secondary file 
+for `data/01/01f2…16a` even if the actual files do not have 
+any extensions and are not in the same directory.
 
