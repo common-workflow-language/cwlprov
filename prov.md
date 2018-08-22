@@ -438,7 +438,7 @@ any extensions and are not in the same directory.
 ## Directories
 
 A [CWL Directory](https://www.commonwl.org/v1.0/CommandLineTool.html#Directory) 
-represent an unordered collection of named files or directories.
+represent a collection of named files or directories.
 
 In CWLProv a directory is represented as a [PROV Dictionary](https://www.w3.org/TR/prov-dictionary/)
 of type `ro:Folder` using the relative filenames as keys to [CWL Files](#Files).
