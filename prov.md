@@ -4,43 +4,68 @@
 CWLProv uses [PROV](https://www.w3.org/TR/prov-overview/) to describe provenance traces
 from workflow executions. Such PROV files SHOULD be stored under the `metadata/provenance/` folder.
 
-The underlying model and information of the `
-files under `metadata/provenance` is the same, but is made available in multiple 
-serialization formats:
+See the [BagIt profile](bagit.md) for details on the CWLProv folder structure, and the 
+[Research Object profile](ro.md) on how to declare the typing of the PROV files.
 
-* primary.cwlprov.provn -- [PROV-N](https://www.w3.org/TR/prov-n/) Textual Provenance Notation 
-* primary.cwlprov.xml -- [PROV-XML](https://www.w3.org/TR/prov-xml/)
-* primary.cwlprov.json -- [PROV-JSON](https://www.w3.org/Submission/prov-json/)
-* primary.cwlprov.jsonld -- [PROV-O](https://www.w3.org/TR/prov-o/) as [JSON-LD](https://json-ld.org) (`@context` subject to change)
-* primary.cwlprov.ttl -- [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF Turtle](https://www.w3.org/TR/turtle/)
-* primary.cwlprov.nt -- [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF N-Triples](https://www.w3.org/TR/n-triples/)
+A provenance trace MAY be present in multiple serialization format as detailed below, 
+in which case their filenames SHOULD have the same basename (ignoring extensions), 
+and their content SHOULD have corresponding structures and MUST use the same identifiers 
+for workflow activities and data entities.
 
-See the [BagIt profile](bagit.md) for details on the CWLProv folder structure, and the [Research Object profile](ro.md) on how to declare the typing of the PROV files.
+Provenance files for the top workflow run MUST be present with a file name starting with `primary`.
+CWLProv bags MUST at include `primary.cwlprov.provn` conforming to this document, but 
+MAY include other PROV formats. 
 
-CWLProv bags MUST include `primary.cwlprov.provn` conforming to this document, but MAY include other PROV formats. Conventionally provenance files that follow the PROV structures of this documents MAY be named `*.cwlprov.*`; formally this SHOULD be declared using `conformsTo` in the [RO manifest](ro.md) set to the [permalink](./#Versions), as well as their PROV format:
+Conventionally provenance files that follow the PROV 
+structures of this documents MAY be named `*.cwlprov.*`; formally this SHOULD be
+declared using `conformsTo` in the [RO manifest](ro.md) set to the
+PROV format as well as the [CWLProv permalink](./#Versions):
 
 ```jsonld
         {
             "uri": "provenance/primary.cwlprov.provn",
             "conformsTo": [
                 "http://www.w3.org/TR/2013/REC-prov-n-20130430/",
-                "https://w3id.org/cwl/prov/0.3.0"
-            ],
-            "mediatype": "text/provenance-notation; charset=\"UTF-8\""
+                "https://w3id.org/cwl/prov/0.4.0"
         },
 ```
 
-Other provenance files (e.g. nested workflows, tool logs) can be included under `metadata/provenance/` using arbitrary filenames, for instance `wf-af755b11-0537-4321-bf82-eadf4f6792ef.cwlprov.provn`.
+It is RECOMMENDED to use the following `conformsTo` and `mediatype` values for their corresponding formats:
 
-The below extracts use the PROV-N syntax for brevity.
+| Format | conformsTo | mediatype | extension |
+| ------ | ---------- | --------- | ----------|
+| [PROV-N](https://www.w3.org/TR/prov-n/) | http://www.w3.org/TR/2013/REC-prov-n-20130430/| `text/provenance-notation; charset="UTF-8"` | .provn |
+| [PROV-XML](https://www.w3.org/TR/prov-xml/) | http://www.w3.org/TR/2013/NOTE-prov-xml-20130430/| `application/xml` | .xml |
+| [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF Turtle](https://www.w3.org/TR/turtle/) | http://www.w3.org/TR/2013/REC-prov-o-20130430/ | `text/turtle; charset="UTF-8"` | `.ttl` |
+| [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF N-Triples](https://www.w3.org/TR/n-triples/) | http://www.w3.org/TR/2013/REC-prov-o-20130430/ | `application/n-triples` | `.nt` |
+| [PROV-O](https://www.w3.org/TR/prov-o/) as [JSON-LD](https://json-ld.org) | http://www.w3.org/TR/2013/REC-prov-o-20130430/ | `application/ld+json` | `.jsonld` |
+| [PROV-JSON](https://www.w3.org/Submission/prov-json/) | http://www.w3.org/Submission/2013/SUBM-prov-json-20130424/ | `application/json` | `.json` |
+
+It is NOT RECOMMENDED to use [RDF/XML](http://www.w3.org/TR/rdf-syntax-grammar/) (`application/rdf+xml`) or [OWL/XML](http://www.w3.org/TR/owl2-xml-serialization/) (`application/owl+xml`) for PROV-O files.
+
+Other provenance files (e.g. nested workflows, tool logs) MAY be included under `metadata/provenance/` 
+using arbitrary filenames, for instance `workflow-af755b11-0537-4321-bf82-eadf4f6792ef.cwlprov.provn`. These files SHOULD use PROV but MAY use system-specific formats, either which SHOULD be indicated with `conformsTo` and `mediatype`. 
+
+The [revsort-run-1 example](examples/revsort-run-1) includes these provenance serializations:
+
+* [primary.cwlprov.provn](examples/revsort-run-1/metadata/provenance/primary.cwlprov.provn) -- [PROV-N](https://www.w3.org/TR/prov-n/) Textual Provenance Notation 
+* [primary.cwlprov.xml](examples/revsort-run-1/metadata/provenance/primary.cwlprov.xml) -- [PROV-XML](https://www.w3.org/TR/prov-xml/)
+* [primary.cwlprov.ttl](examples/revsort-run-1/metadata/provenance/primary.cwlprov.ttl) -- [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF Turtle](https://www.w3.org/TR/turtle/)
+* [primary.cwlprov.nt](examples/revsort-run-1/metadata/provenance/primary.cwlprov.nt) -- [PROV-O](https://www.w3.org/TR/prov-o/) as [RDF N-Triples](https://www.w3.org/TR/n-triples/)
+* [primary.cwlprov.jsonld](examples/revsort-run-1/metadata/provenance/primary.cwlprov.jsonld) -- [PROV-O](https://www.w3.org/TR/prov-o/) as [JSON-LD](https://json-ld.org) (`@context` subject to change)
+* [primary.cwlprov.json](examples/revsort-run-1/metadata/provenance/primary.cwlprov.json) -- [PROV-JSON](https://www.w3.org/Submission/prov-json/)
+
+For brevity the below extracts use the PROV-N syntax. Note that UUIDs and hash values 
+might differ from the [example PROV](examples/revsort-run-1/metadata/provenance/primary.cwlprov.provn) file.
 
 **TODO: Rewrite below to spec-style language**
 
 ## CWLPROV namespaces
 
 
-Note that the identifiers must be expanded with the defined `prefix`-es when comparing across serializations.
-These set which vocabularies ("namespaces") are used by the CWLProv statements:
+Note that the identifiers must be expanded with the defined `prefix`-es when comparing 
+across serializations. These set which vocabularies ("namespaces") are used by the 
+CWLProv statements:
 
 ```provn
     prefix data <urn:hash:sha1:>
@@ -57,7 +82,8 @@ These set which vocabularies ("namespaces") are used by the CWLProv statements:
     prefix foaf <http://xmlns.com/foaf/0.1/>
 ```
 
-The PROV trace SHOULD use the [arcp](https://tools.ietf.org/id/draft-soilandreyes-arcp-03.html) base URIs corresponding to the [Research Object @base](ro.md)
+The PROV trace SHOULD use the [arcp](https://tools.ietf.org/id/draft-soilandreyes-arcp-03.html) 
+base URIs corresponding to the [Research Object @base](ro.md)
 or [BagIt External-Identifier](bagit.md#External-Identifier).
 
 The arcp base URI SHOULD be based on the UUID of the master workflow run activity identifier, if present.
@@ -65,12 +91,14 @@ The arcp base URI SHOULD be based on the UUID of the master workflow run activit
 
 ## Account who launched cwltool
 
-If `cwltool --enable-user-provenance` was used, the local machine acccount (e.g. Windows or UNIX user name) who executed that command  can be tracked:
+If `cwltool --enable-user-provenance` was used, the local machine acccount (e.g. Windows or 
+UNIX user name) who executed that command  can be tracked:
 
 
     agent(id:855c6823-bbe7-48a5-be37-b0f07f20c495, [foaf:accountName="stain", prov:type='foaf:OnlineAccount', prov:label="stain"])
 
-It is assumed that the account was under the control of the named person (in PROV terms "actedOnBehalfOf"):
+It is assumed that the account was under the control of the named person 
+(in PROV terms `actedOnBehalfOf`):
 
 ```provn
     agent(id:433df002-2584-462a-80b0-cf90b97e6e07, [prov:label="Stian Soiland-Reyes", 

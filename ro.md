@@ -8,9 +8,10 @@ traces detailing the execution of the workflow and its steps.
 
 A relevant parts of the CWLProv folder structure is here explained using the [revsort-run-1 example](examples/revsort-run-1):
 
-* `bag-info.txt` - minimal bag metadata (notably the `External-Identifier`)
-* `manifest-*.txt` - checksums of files under data/ (algorithms subject to change)
-* `metadata/manifest.json` - [Research Object manifest](https://w3id.org/bundle/#manifest) as JSON-LD. Types and relates files within bag.
+* [bag-info.txt](examples/revsort-run-1/bag-info.txt) - minimal bag metadata (notably the `External-Identifier`)
+* [manifest-*.txt](examples/revsort-run-1/manifest-sha1.txt) - checksums of files under `data/` (algorithms subject to change)
+* [tagmanifest-*.txt](examples/revsort-run-1/tagmanifest-sha512.txt) - checksums of metadata files excluding `data/` 
+* [metadata/manifest.json](examples/revsort-run-1/metadata/manifest.json) - [Research Object manifest](https://w3id.org/bundle/#manifest) as JSON-LD. Types and relates files within bag.
 
 
 See the [CWLProv BagIt profile](bagit.md) for details on the BagIt structures and suggested file paths.
@@ -32,7 +33,7 @@ The `metadata/manifest.json` file SHOULD follow the JSON structure defined here,
 
 Consumers of CWLProv MAY parse the RO manifest as pure JSON, alternatively as JSON-LD using tools like [Apache Jena](https://jena.apache.org/) for querying or integration.
 
-The expected keys of the CWLProv manifest are explained below.
+The expected keys of the CWLProv manifest are explained below. Note that hashes/UUIDs below may not match exactly the [revsort-run-1 example](examples/revsort-run-1).
 
 ### Context 
 
@@ -57,7 +58,7 @@ The `@base` value SHOULD be based on the [arcp External-Identifier](bagit.md#Ext
 CWLProv research objects MUST declare `conformsTo` to indicate their conformance with this document. The value SHOULD match a published [CWLProv permalink](./#Versions).
 
 ```jsonld
-  "conformsTo": "https://w3id.org/cwl/prov/0.3.0",
+  "conformsTo": "https://w3id.org/cwl/prov/0.4.0",
 ```
 
 
@@ -87,7 +88,7 @@ The manifest SHOULD list the person who "authored the run" - e.g. who requested 
 
 The author SHOULD be identified at `orcid` using [ORCID identifiers](https://orcid.org/) starting with `https://orcid.org/`. The `uri` field MAY be included, e.g. `http://portal.example.com/user/2`.
 
-Engines SHOULD use the value of the `ORCID` environment variable if provided, ensuring the ORCID identifier format is [valid](https://support.orcid.org/knowledgebase/articles/116780-structure-of-the-orcid-identifier).
+Engines SHOULD propagate the value of the `ORCID` shell environment variable if provided, ensuring the ORCID identifier format is [valid](https://support.orcid.org/knowledgebase/articles/116780-structure-of-the-orcid-identifier).
 
 Note that the author of the _workflow run_ may differ from the author of the _workflow definition_, which can instead be indicated under aggregates.
 
@@ -129,7 +130,7 @@ The list of `aggregates` are the main resources that this Research Object transp
 Beyond being a listing of file names and identifiers, this also lists formats and light-weight provenance. We note that the
 CWL file is marked to conform to the https://w3id.org/cwl/ CWL specification.
 
-Some of the files like `packed.cwl` have been created by cwltool as part of the run, while others have been created before the run "outside".
+Some of the files like `packed.cwl` have been created by `cwltool` as part of the run, while others have been created "outside" the run (e.g. inputs).
 (Note that `cwltool` is currently unable to extract the original authors and contributors of the original files, this is planned for future versions).
 
 Under `annotations` we see that the main point of this whole research object (`/` aka `arcp://uuid,67f38794-d24a-435f-bd4a-0242a56a581b/`) 
@@ -193,5 +194,3 @@ And links the run ID `67f38794..` to the `primary-job.json` and `packed.cwl`:
             }
         }
 ```
-
-Note: The `oa:motivatedBy` terms used in CWLProv are subject to change.

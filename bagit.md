@@ -10,52 +10,56 @@ so that its content and completeness can be verified with any
 
 A rough overview of the CWLProv folder structure (the _bag_), is here explained using the [revsort-run-1 example](examples/revsort-run-1):
 
-* `bagit.txt` - bag marker for [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-16)
-* `bag-info.txt` - minimal bag metadata (notably the `External-Identifier`)
-* `manifest-*.txt` - checksums of files under data/ (algorithms subject to change)
-* `tagmanifest-*.txt` - checksums of the remaining files (algorithms subject to change)
-* `metadata/manifest.json` - [Research Object manifest](https://w3id.org/bundle/#manifest) as JSON-LD. Types and relates files within bag.
-* `metadata/provenance/primary.cwlprov*` - [provenance](prov.md) traces of workflow execution
-* `data/` - bag payload: workflow/step input/output data files (content-addressable)
-* `data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376` - a data item with checksum ``327fc7aedf4f6b69a42a7c8b808dc5a7aff61376`` (checksum algorithm is subject to change)
-* `workflow/packed.cwl` - The ``cwltool --pack`` standalone version of the executed workflow
-* `workflow/primary-job.json` - Job input for use with packed.cwl (references ``data/*``)
-* `snapshot/` - Direct copies of original files used for execution, but may have broken relative/absolute paths
+* [bagit.txt](examples/revsort-run-1/bagit.txt) - bag marker for [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-16)
+* [bag-info.txt](examples/revsort-run-1/bag-info.txt) - minimal bag metadata (notably the `External-Identifier`)
+* [manifest-*.txt](examples/revsort-run-1/manifest-sha1.txt)  - checksums of files under data/ (algorithms subject to change)
+* [tagmanifest-*.txt](examples/revsort-run-1/tagmanifest-sha512.txt) - checksums of the remaining files (algorithms subject to change)
+* [metadata/manifest.json](examples/revsort-run-1/metadata/manifest.json) - [Research Object manifest](https://w3id.org/bundle/#manifest) as JSON-LD. Types and relates files within bag.
+* [metadata/provenance/primary.cwlprov*](examples/revsort-run-1/metadata/provenance/primary.cwlprov.provn) - [provenance](prov.md) traces of workflow execution
+* [data/](examples/revsort-run-1/data/) - bag payload: workflow/step input/output data files (content-addressable)
+* [data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376](examples/revsort-run-1/data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376) - a data item with checksum ``327fc7aedf4f6b69a42a7c8b808dc5a7aff61376`` (checksum algorithm is subject to change)
+* [workflow/packed.cwl](examples/revsort-run-1/workflow/packed.cwl) - The ``cwltool --pack`` standalone version of the executed workflow
+* [workflow/primary-job.json](examples/revsort-run-1/workflow/primary-job.json) - Job input for use with packed.cwl (references `data/*`)
+* [snapshot/](examples/revsort-run-1/snapshot/) - Direct copies of original files used for execution, but may have broken relative/absolute paths
 
-It is out of scope of this document to cover the details of the 
+It is out of scope of this document to cover the full details of the 
 [BagIt specification](https://tools.ietf.org/html/draft-kunze-bagit-16),
 but describe the CWLProv bag constraints; the _CWLProv BagIt profile_.
 
 
 ## BagIt files
 
-The base directory of a _bag_ MUST contain the marker file [bagit.txt](examples/revsort-run-1/bagit.txt) which `BagIt-Version` SHOULD be `1.0` (corresponding to [draft-kunze-bagit-16](https://tools.ietf.org/html/draft-kunze-bagit-16#section-2.1.1)). `Tag-File-Character-Encoding` MUST be `UTF-8` in CWLProv.
+The base directory of a _bag_ MUST contain the marker file [bagit.txt](examples/revsort-run-1/bagit.txt) which `BagIt-Version` SHOULD be `1.0` (corresponding to [draft-kunze-bagit-16](https://tools.ietf.org/id/draft-kunze-bagit-16.html#rfc.section.2.1.1)). `Tag-File-Character-Encoding` MUST be `UTF-8` in CWLProv.
 
-In CWLProv the metadata file [bag-info.txt](examples/revsort-run-1/bag-info.txt) MUST be present and MUST contain an `External-Identifier` header. The headers `Bagging-Date` and `Bag-Software-Agent` SHOULD be present.
+In CWLProv the metadata file [bag-info.txt](examples/revsort-run-1/bag-info.txt) MUST be present and MUST contain an `External-Identifier` header. The headers `Bagging-Date` and `Bag-Software-Agent` SHOULD be present. The header `BagIt-Profile-Identifier` MUST be present and SHOULD have the value `https://w3id.org/ro/bagit/profile` to indicate conformance to the [Research Object BagIt profile](ro.md).
 
+CWLProv file names MUST be lower case, except for _snapshot files_ which filenames SHOULD be derived from their original file name.
 
 ## Payload
 
-In CWLProv the [payload](https://tools.ietf.org/html/draft-kunze-bagit-16#section-2.1.2) directory `data/` SHOULD only contain data files or structured that have been used in the workflow execution (e.g. input and output files). Other files, such as provenance traces or workflow definitions SHOULD be stored as [tag files](https://tools.ietf.org/html/draft-kunze-bagit-16#section-2.2.4) in other directories.
+In CWLProv the [payload](https://tools.ietf.org/id/draft-kunze-bagit-16.html#rfc.section.2.1.2) directory `data/` SHOULD only contain data files or structured that have been used in the workflow execution (e.g. input and output files). Other files (such as provenance traces or workflow definitions0 SHOULD be stored as [tag files](https://tools.ietf.org/id/draft-kunze-bagit-16.html#rfc.section.2.2.4) in other directories.
 
 All checksums of `data/` files MUST be included in every [manifest file](https://tools.ietf.org/html/draft-kunze-bagit-16#section-2.1.3), e.g. 
-[manifest-sha1.txt](examples/revsort-run-1/manifest-sha1.txt). CWLProv bags SHOULD include the manifest as `sha1` and `sha512`.
+[manifest-sha1.txt](examples/revsort-run-1/manifest-sha1.txt). CWLProv bags SHOULD include the manifest as `sha1` and `sha512`. 
 
-In CWLProv the payload files SHOULD have file paths derived from their own hashcode (content-addressable), however CWLProv consumers MUST NOT assume this, as implementations MAY use other unique filenames like UUIDs. Reasonable subdirectory structures SHOULD be used to avoid a single directory with a large amount of files. For instance [data/97/](https://github.com/common-workflow-language/cwlprov/tree/master/examples/revsort-run-1/data/97) contains [97fe1b50b4582cebc7d853796ebd62e3e163aa3f](examples/revsort-run-1/data/97/97fe1b50b4582cebc7d853796ebd62e3e163aa3f) which happens to have the SHA1 checksum `97fe1b50b4582cebc7d853796ebd62e3e163aa3f`.
+In CWLProv the payload files SHOULD have file paths derived from their own hashcode (_content-addressable_), however CWLProv consumers MUST NOT assume this, as implementations MAY use other unique filenames like UUIDs. Implementations MAY use any hash algorithm, but it is RECOMMENDED that the algorithm corresponds to a manifest file.
+
+Reasonable subdirectory structures SHOULD be used to avoid a single directory with a large amount of files. For instance [data/97/](https://github.com/common-workflow-language/cwlprov/tree/master/examples/revsort-run-1/data/97) contains [97fe1b50b4582cebc7d853796ebd62e3e163aa3f](examples/revsort-run-1/data/97/97fe1b50b4582cebc7d853796ebd62e3e163aa3f) which happens to have the SHA1 checksum `97fe1b50b4582cebc7d853796ebd62e3e163aa3f`. 
 
 
 ## Tag files
 
-All files outside `data/` (except `bagit.txt` and `manifest*txt`) SHOULD be listed in a corresponding [tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-16#section-2.2.1) file, e.g. [tagmanifest-sha1.txt](examples/revsort-run-1/tagmanifest-sha1.txt). CWLProv bags SHOULD include the tag manifest as `sha1` and `sha512`.
+All files outside `data/` (except `bagit.txt` and `manifest*txt`) SHOULD be listed in a corresponding [tag manifest](https://tools.ietf.org/id/draft-kunze-bagit-16.html#rfc.section.2.2.1) file, e.g. [tagmanifest-sha1.txt](examples/revsort-run-1/tagmanifest-sha1.txt). CWLProv bags SHOULD include the tag manifest using algorithms `sha1` and `sha512`.
 
 CWLProv bags SHOULD include an system-independent runnable version of the executed workflow under `workflow/`.
 
-CWLProv SHOULD contain a [CWL workflow](https://www.commonwl.org/v1.0/Workflow.html) in `workflow/packed.cwl` - which SHOULD avoid any includes or references external to the CWLProv bag folder structure. This file may be created with `cwltool --pack` or through other means. 
+CWLProv SHOULD contain a [CWL workflow](https://www.commonwl.org/v1.0/Workflow.html) in `workflow/packed.cwl` - which SHOULD avoid any includes or references external to the CWLProv bag folder structure. This file can be created with `cwltool --pack` or through other means.
  
-CWLProv bags MAY include direct copies of arbitrarily named workflow files used at execution times under `snapshot/`. Consumers SHOULD NOT assume these files are CWL workflows (unless so declared in the RO manifest, see below). Consumers SHOULD NOT assume that snapshot files have valid relative paths in their internal cross-referencing.
+CWLProv bags MAY include direct copies of arbitrarily named workflow files used at execution times under `snapshot/`. Consumers SHOULD NOT assume these files are CWL workflows (unless so declared in the RO manifest, see below). Consumers SHOULD NOT assume that snapshot files have valid relative paths in their internal cross-referencing. Producers SHOULD use snapshot file names that reflect their original file names, taking reasonable care to avoid duplication or overlaps.
 
 CWLPROV bags MUST include provenance traces of the workflow run under `metadata/provenance`, of which the file `primary.cwlprov.provn` MUST be present in [PROV-N](http://www.w3.org/TR/2013/REC-prov-n-20130430/) format, describing the top level workflow execution according to the [CWLProv PROV profile](prov.md). Other provenance files and formats MAY be present, in which case they SHOULD have `conformsTo` declared in the [RO manifest](ro.md).
 
+* 
 
 ## External Identifier
 
