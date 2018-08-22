@@ -31,13 +31,13 @@ There are three parts to this profile:
 
 This repository may later also include formal profiles for computational validation, e.g. [BagIt profile](https://github.com/bagit-profiles/bagit-profiles) of included resources, [ShEx](http://shex.io/) for manifest content, and [PROV Template](https://provenance.ecs.soton.ac.uk/prov-template-2014-06-07/) to document PROV structures.
 
-The [CWLProv white paper](https://doi.org/10.5281/zenodo.1208477) describes the background and motivation for this profile. For the avoidance of doubt, from CWLProv 0.3.0 this repository is authorative of CWLProv specifications.
+The [CWLProv white paper](https://doi.org/10.5281/zenodo.1208477) describes the background and motivation for this profile. For the avoidance of doubt, from CWLProv 0.3.0 this GitHub repository is authoritative of CWLProv specifications.
 
 
 ## Known implementations
 
 * [cwltool --provenance](https://github.com/common-workflow-language/cwltool/blob/master/CWLProv.rst) (reference implementation)
-* [nextflow -with-prov](https://github.com/edgano/researchObject-Nextflow) (work in progress, CWLProv without CWL)
+* [nextflow -with-prov](https://github.com/edgano/researchObject-Nextflow) (work in progress, ~ CWLProv without CWL)
 
 
 ## License
@@ -75,6 +75,7 @@ as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 ## Versions
 
+* 0.4.0-SNAPSHOT (in preparation - declares directories and secondary files)
 * 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) First implementation [merged](https://github.com/common-workflow-language/cwltool/pull/676) into cwltool. (declares `conformsTo` on `/` and PROV files)
 * 0.2.0 [https://w3id.org/cwl/prov/0.2.0](https://w3id.org/cwl/prov/0.2.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1215611](https://doi.org/10.5281/zenodo.1215611) (declares `conformsTo` as https://doi.org/10.5281/zenodo.1208477 on PROV files)
 * 0.1.0 [https://w3id.org/cwl/prov/0.1.0](https://w3id.org/cwl/prov/0.1.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1208478](https://doi.org/10.5281/zenodo.1208478) (no self-declaration of CWLProv)
