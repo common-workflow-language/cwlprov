@@ -4,7 +4,7 @@ Profile for provenance research object of a CWL workflow run.
 ## Quicklinks
 
 * CWLProv Examples:
-  * [revsort-run-1](examples/revsort-run-1/) - execution of [revsort.cwl](https://github.com/common-workflow-language/cwltool/blob/1.0.20180521150620/tests/wf/revsort.cwl) (CWLProv 0.3.0)
+  * [revsort-run-1](examples/revsort-run-1/) - execution of [revsort.cwl](https://github.com/common-workflow-language/cwltool/blob/1.0.20180521150620/tests/wf/revsort.cwl) (CWLProv 0.4.0)
   * [RunTimeResearchObject](https://zenodo.org/record/1215611/files/RunTimeResearchObject-f0b553d37e4255a3291393948f3e308bd88ed301.zip?download=1) execution of a [sequence alignment workflow](https://github.com/FarahZKhan/scalability-reproducibility-chapter/blob/ProvCaptureDemo/CWL/workflow_simple.cwl) (CWLProv 0.2.0) - from [10.5281/10.5281/zenodo.1215611](https://doi.org/10.5281/10.5281/zenodo.1215611)
 * CWLProv posters:
   * [CWLProv – Interoperable retrospective provenance capture and its challenges](https://doi.org/10.7490/f1000research.1115721.1), _BOSC 2018_ ([10.7490/f1000research.1115721.1](https://10.7490/f1000research.1115721.1))
@@ -75,7 +75,8 @@ as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 ## Versions
 
-* 0.4.0-SNAPSHOT (in preparation - declares directories and secondary files)
+* 0.5.0-SNAPSHOT (in preparation) - adds `primary-output.json`
+* 0.4.0 [https://w3id.org/cwl/prov/0.4.0](https://w3id.org/cwl/prov/0.4.0) (declares directories and secondary files)
 * 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) First implementation [merged](https://github.com/common-workflow-language/cwltool/pull/676) into cwltool. (declares `conformsTo` on `/` and PROV files)
 * 0.2.0 [https://w3id.org/cwl/prov/0.2.0](https://w3id.org/cwl/prov/0.2.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1215611](https://doi.org/10.5281/zenodo.1215611) (declares `conformsTo` as https://doi.org/10.5281/zenodo.1208477 on PROV files)
 * 0.1.0 [https://w3id.org/cwl/prov/0.1.0](https://w3id.org/cwl/prov/0.1.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1208478](https://doi.org/10.5281/zenodo.1208478) (no self-declaration of CWLProv)
