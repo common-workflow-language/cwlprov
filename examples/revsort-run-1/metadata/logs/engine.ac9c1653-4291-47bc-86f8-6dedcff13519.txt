@@ -1,0 +1,47 @@
+[2018-10-25T14:46:33,881Z] [cwltool] /home/stain/src/cwltool/venv3/bin/cwltool --provenance /home/stain/src/cwlprov/examples/revsort-run-2 tests/wf/revsort.cwl tests/wf/revsort-job.json
+[2018-10-25T14:46:33,882Z] Resolved 'tests/wf/revsort.cwl' to 'file:///home/stain/src/cwltool/tests/wf/revsort.cwl'
+[2018-10-25T14:46:35,298Z] [provenance] Adding to RO file:///home/stain/src/cwltool/tests/wf/whale.txt
+[2018-10-25T14:46:35,303Z] [workflow ] start
+[2018-10-25T14:46:35,305Z] [workflow ] starting step rev
+[2018-10-25T14:46:35,305Z] [step rev] start
+[2018-10-25T14:46:35,596Z] [job rev] /tmp/tmpohf6vict$ docker \
+    run \
+    -i \
+    --volume=/tmp/tmpohf6vict:/rvQiNC:rw \
+    --volume=/tmp/tmphc8wty7p:/tmp:rw \
+    --volume=/home/stain/src/cwltool/tests/wf/whale.txt:/var/lib/cwl/stgcbf9a87c-f211-487a-a959-4053916c7ae0/whale.txt:ro \
+    --workdir=/rvQiNC \
+    --read-only=true \
+    --log-driver=none \
+    --user=1000:1000 \
+    --rm \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/rvQiNC \
+    debian:8 \
+    rev \
+    /var/lib/cwl/stgcbf9a87c-f211-487a-a959-4053916c7ae0/whale.txt > /tmp/tmpohf6vict/output.txt
+[2018-10-25T14:46:36,967Z] [job rev] completed success
+[2018-10-25T14:46:36,967Z] [step rev] completed success
+[2018-10-25T14:46:36,968Z] [workflow ] starting step sorted
+[2018-10-25T14:46:36,969Z] [step sorted] start
+[2018-10-25T14:46:37,067Z] [job sorted] /tmp/tmpne4ycwd1$ docker \
+    run \
+    -i \
+    --volume=/tmp/tmpne4ycwd1:/rvQiNC:rw \
+    --volume=/tmp/tmp9xsxe_jm:/tmp:rw \
+    --volume=/tmp/tmpohf6vict/output.txt:/var/lib/cwl/stg35101bd3-e166-440b-af82-daa2ff39c89d/output.txt:ro \
+    --workdir=/rvQiNC \
+    --read-only=true \
+    --log-driver=none \
+    --user=1000:1000 \
+    --rm \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/rvQiNC \
+    debian:8 \
+    sort \
+    --reverse \
+    /var/lib/cwl/stg35101bd3-e166-440b-af82-daa2ff39c89d/output.txt > /tmp/tmpne4ycwd1/output.txt
+[2018-10-25T14:46:38,069Z] [job sorted] completed success
+[2018-10-25T14:46:38,069Z] [step sorted] completed success
+[2018-10-25T14:46:38,069Z] [workflow ] completed success
+[2018-10-25T14:46:43,183Z] Final process status is success

@@ -13,6 +13,7 @@
                 {
                     "type": "File",
                     "doc": "The input file to be processed.",
+                    "format": "https://www.iana.org/assignments/media-types/text/plain",
                     "default": {
                         "class": "File",
                         "location": "file:///home/stain/src/cwltool/tests/wf/hello.txt"
@@ -66,7 +67,10 @@
                     "id": "#main/sorted"
                 }
             ],
-            "id": "#main"
+            "id": "#main",
+            "$namespaces": {
+                "iana": "https://www.iana.org/assignments/media-types/"
+            }
         },
         {
             "class": "CommandLineTool",
@@ -127,6 +131,7 @@
     ],
     "cwlVersion": "v1.0",
     "$schemas": [
-        "file:///home/stain/src/cwltool/tests/wf/empty.ttl"
+        "file:///home/stain/src/cwltool/tests/wf/empty.ttl",
+        "file:///home/stain/src/cwltool/tests/wf/empty2.ttl"
     ]
 }

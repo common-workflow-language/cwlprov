@@ -1,7 +1,7 @@
-Bag-Software-Agent: cwltool (unknown version)
+Bag-Software-Agent: cwltool 1.0.20181012180214
 BagIt-Profile-Identifier: https://w3id.org/ro/bagit/profile
 Bagging-Date: 2018-10-25
 External-Description: Research Object of CWL workflow run
 Contact-Name: Stian Soiland-Reyes
-External-Identifier: arcp://uuid,95f5d15d-2125-4a81-b26b-3df1801da091/
+External-Identifier: arcp://uuid,1f767ad4-ac52-4623-b5bc-dd9faf2b869f/
 Payload-Oxum: 3333.3
