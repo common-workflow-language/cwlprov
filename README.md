@@ -76,9 +76,8 @@ as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 ## Versions
 
-<!--
-* 0.6.0 [https://w3id.org/cwl/prov/0.6.0](https://w3id.org/cwl/prov/0.6.0) Adds logging (introduced in cwltool [1.0.20181012180214](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20181012180214))
--->
+
+* 0.6.0 [https://w3id.org/cwl/prov/0.6.0](https://w3id.org/cwl/prov/0.6.0) Adds `metadata/logs`, no longer snapshot input files (they are also under `data/`) (introduced in cwltool [1.0.20181012180214](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20181012180214))
 * 0.5.0 [https://w3id.org/cwl/prov/0.5.0](https://w3id.org/cwl/prov/0.5.0) Adds `workflow/primary-output.json` (introduced in cwltool [1.0.20180912090223](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180912090223))
 * 0.4.0 [https://w3id.org/cwl/prov/0.4.0](https://w3id.org/cwl/prov/0.4.0) Declares directories and secondary files (introduced in cwltool [1.0.20180819175200](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180819175200))
 * 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) Semantic versioning of CWLProv (introduced in cwltool [1.0.20180711112827](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180711112827))
