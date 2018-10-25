@@ -1,6 +1,8 @@
 # cwlprov
 Profile for provenance research object of a CWL workflow run.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1471583.svg)](https://doi.org/10.5281/zenodo.1471583)
+
 ## Quicklinks
 
 * CWLProv Examples:
