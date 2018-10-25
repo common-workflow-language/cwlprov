@@ -37,9 +37,9 @@ The [CWLProv white paper](https://doi.org/10.5281/zenodo.1208477) describes the 
 ## Known implementations
 
 * [cwltool --provenance](https://github.com/common-workflow-language/cwltool/blob/master/CWLProv.rst) (reference implementation)
-* [cwlprov-py](https://github.com/common-workflow-language/cwlprov-py) (work in progress, command line tool)
-* [nextflow -with-prov](https://github.com/edgano/researchObject-Nextflow) (work in progress, ~ CWLProv without CWL)
-
+* [cwlprov-py](https://github.com/common-workflow-language/cwlprov-py) (command line tool to inspect)
+* [nextflow -with-prov](https://github.com/edgano/researchObject-Nextflow) (work in progress, approaching CWLProv without CWL)
+* [toil](https://github.com/DataBiosphere/toil/issues/2390) (planned)
 
 ## License
 
@@ -77,13 +77,13 @@ as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 ## Versions
 
 <!--
-* 0.6.0 [https://w3id.org/cwl/prov/0.6.0](https://w3id.org/cwl/prov/0.6.0) Adds logging (first implemented in cwltool [1.0.20181012180214](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20181012180214))
+* 0.6.0 [https://w3id.org/cwl/prov/0.6.0](https://w3id.org/cwl/prov/0.6.0) Adds logging (introduced in cwltool [1.0.20181012180214](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20181012180214))
 -->
-* 0.5.0 [https://w3id.org/cwl/prov/0.5.0](https://w3id.org/cwl/prov/0.5.0) Adds `workflow/primary-output.json` (first implemented in cwltool [1.0.20180912090223](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180912090223))
-* 0.4.0 [https://w3id.org/cwl/prov/0.4.0](https://w3id.org/cwl/prov/0.4.0) Declares directories and secondary files (first implemented in cwltool [1.0.20180819175200](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180819175200))
-* 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) First released implementation (cwltool [(https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180711112827)]) - (declares `conformsTo` on `/` and PROV files)
-* 0.2.0 [https://w3id.org/cwl/prov/0.2.0](https://w3id.org/cwl/prov/0.2.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1215611](https://doi.org/10.5281/zenodo.1215611) - (declares `conformsTo` as https://doi.org/10.5281/zenodo.1208477 on PROV files)
-* 0.1.0 [https://w3id.org/cwl/prov/0.1.0](https://w3id.org/cwl/prov/0.1.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1208478](https://doi.org/10.5281/zenodo.1208478) (no self-declaration of CWLProv)
+* 0.5.0 [https://w3id.org/cwl/prov/0.5.0](https://w3id.org/cwl/prov/0.5.0) Adds `workflow/primary-output.json` (introduced in cwltool [1.0.20180912090223](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180912090223))
+* 0.4.0 [https://w3id.org/cwl/prov/0.4.0](https://w3id.org/cwl/prov/0.4.0) Declares directories and secondary files (introduced in cwltool [1.0.20180819175200](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180819175200))
+* 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) Semantic versioning of CWLProv (introduced in cwltool [1.0.20180711112827](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180711112827))
+* 0.2.0 [https://w3id.org/cwl/prov/0.2.0](https://w3id.org/cwl/prov/0.2.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1215611](https://doi.org/10.5281/zenodo.1215611) - (Note: No semantic versioning, `conformsTo` https://doi.org/10.5281/zenodo.1208477 on PROV files)
+* 0.1.0 [https://w3id.org/cwl/prov/0.1.0](https://w3id.org/cwl/prov/0.1.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1208478](https://doi.org/10.5281/zenodo.1208478) (Note: No self-declaration of CWLProv version)
 
 
 CWLProv is versioned using [Semantic Versioning](https://semver.org/spec/v2.0.0.html), following the pattern `MAJOR.MINOR.PATCH` (e.g. `1.2.0`).
