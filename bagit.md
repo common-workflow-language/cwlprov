@@ -15,12 +15,15 @@ A rough overview of the CWLProv folder structure (the _bag_), is here explained 
 * [manifest-*.txt](examples/revsort-run-1/manifest-sha1.txt)  - checksums of files under data/ (algorithms subject to change)
 * [tagmanifest-*.txt](examples/revsort-run-1/tagmanifest-sha512.txt) - checksums of the remaining files (algorithms subject to change)
 * [metadata/manifest.json](examples/revsort-run-1/metadata/manifest.json) - [Research Object manifest](https://w3id.org/bundle/#manifest) as JSON-LD. Types and relates files within bag.
+* [metadata/logs/*](examples/revsort-run-1/metadata/logs/) - raw output logs from workflow engine
 * [metadata/provenance/primary.cwlprov*](examples/revsort-run-1/metadata/provenance/primary.cwlprov.provn) - [provenance](prov.md) traces of workflow execution
 * [data/](examples/revsort-run-1/data/) - bag payload: workflow/step input/output data files (content-addressable)
 * [data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376](examples/revsort-run-1/data/32/327fc7aedf4f6b69a42a7c8b808dc5a7aff61376) - a data item with checksum ``327fc7aedf4f6b69a42a7c8b808dc5a7aff61376`` (checksum algorithm is subject to change)
 * [workflow/packed.cwl](examples/revsort-run-1/workflow/packed.cwl) - The ``cwltool --pack`` standalone version of the executed workflow
-* [workflow/primary-job.json](examples/revsort-run-1/workflow/primary-job.json) - Job input for use with packed.cwl (references `data/*`)
-* [snapshot/](examples/revsort-run-1/snapshot/) - Direct copies of original files used for execution, but may have broken relative/absolute paths
+* [workflow/primary-job.json](examples/revsort-run-1/workflow/primary-job.json) - Job input JSON document for use with packed.cwl (references `data/*`)
+* [workflow/primary-output.json](examples/revsort-run-1/workflow/primary-output.json) - Job output JSON document (references `data/*`)
+* [snapshot/](examples/revsort-run-1/snapshot/) - Direct copies of original `*.cwl` files used for execution. Note: may have broken relative/absolute paths
+
 
 It is out of scope of this document to cover the full details of the 
 [BagIt specification](https://tools.ietf.org/html/draft-kunze-bagit-16),
