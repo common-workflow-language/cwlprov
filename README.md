@@ -76,10 +76,13 @@ as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 ## Versions
 
-* 0.5.0-SNAPSHOT (in preparation) - adds `primary-output.json`
-* 0.4.0 [https://w3id.org/cwl/prov/0.4.0](https://w3id.org/cwl/prov/0.4.0) (declares directories and secondary files)
-* 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) First implementation [merged](https://github.com/common-workflow-language/cwltool/pull/676) into cwltool. (declares `conformsTo` on `/` and PROV files)
-* 0.2.0 [https://w3id.org/cwl/prov/0.2.0](https://w3id.org/cwl/prov/0.2.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1215611](https://doi.org/10.5281/zenodo.1215611) (declares `conformsTo` as https://doi.org/10.5281/zenodo.1208477 on PROV files)
+<!--
+* 0.6.0 [https://w3id.org/cwl/prov/0.6.0](https://w3id.org/cwl/prov/0.6.0) Adds logging (first implemented in cwltool [1.0.20181012180214](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20181012180214))
+-->
+* 0.5.0 [https://w3id.org/cwl/prov/0.5.0](https://w3id.org/cwl/prov/0.5.0) Adds `workflow/primary-output.json` (first implemented in cwltool [1.0.20180912090223](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180912090223))
+* 0.4.0 [https://w3id.org/cwl/prov/0.4.0](https://w3id.org/cwl/prov/0.4.0) Declares directories and secondary files (first implemented in cwltool [1.0.20180819175200](https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180819175200))
+* 0.3.0 [https://w3id.org/cwl/prov/0.3.0](https://w3id.org/cwl/prov/0.3.0) First released implementation (cwltool [(https://github.com/common-workflow-language/cwltool/releases/tag/1.0.20180711112827)]) - (declares `conformsTo` on `/` and PROV files)
+* 0.2.0 [https://w3id.org/cwl/prov/0.2.0](https://w3id.org/cwl/prov/0.2.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1215611](https://doi.org/10.5281/zenodo.1215611) - (declares `conformsTo` as https://doi.org/10.5281/zenodo.1208477 on PROV files)
 * 0.1.0 [https://w3id.org/cwl/prov/0.1.0](https://w3id.org/cwl/prov/0.1.0) Prototype as exemplified in [https://doi.org/10.5281/zenodo.1208478](https://doi.org/10.5281/zenodo.1208478) (no self-declaration of CWLProv)
 
 

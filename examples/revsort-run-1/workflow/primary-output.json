@@ -1,0 +1,13 @@
+{
+    "output": {
+        "location": "../data/b9/b9214658cc453331b62c2282b772a5c063dbd284",
+        "basename": "output.txt",
+        "nameroot": "output",
+        "nameext": ".txt",
+        "class": "File",
+        "checksum": "sha1$b9214658cc453331b62c2282b772a5c063dbd284",
+        "size": 1111,
+        "http://commonwl.org/cwltool#generation": 0,
+        "@id": "urn:uuid:e3611b2c-d968-4f16-b7c0-bb97963227a4"
+    }
+}
