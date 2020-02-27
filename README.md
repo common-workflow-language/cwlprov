@@ -18,7 +18,7 @@ Profile for provenance research object of a CWL workflow run.
   * [Challenges in interoperable provenance capture](http://slides.com/soilandreyes/2018-01-15-interoperable-provenance#/), _Research Data Alliance_
   * [The Archive and Package (arcp) URI scheme](http://slides.com/soilandreyes/2018-03-23-arcp-uri-scheme#/)
 * Papers:
-  * [CWLProv - Interoperable Retrospective Provenance capture and its challenges](https://doi.org/10.5281/zenodo.1208477) _Zenodo preprint_ ([10.5281/zenodo.1208477](https://doi.org/10.5281/zenodo.1208477))
+  * [Sharing interoperable workflow provenance: A review of best practices and their practical application in CWLProv](https://doi.org/10.1093/gigascience/giz095)
 
 
 ## Overview
