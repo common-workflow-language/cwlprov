@@ -1,13 +1,16 @@
 # cwlprov
 Profile for provenance research object of a CWL workflow run.
 
-Citing the profile itself: [![Profile DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1471583.svg)](https://doi.org/10.5281/zenodo.1471583)
+## Cite as 
 
 Peer-reviewed paper about CWLProv:
 
-Farah Zaib Khan, Stian Soiland-Reyes, Richard O Sinnott, Andrew Lonie, Carole Goble, Michael R Crusoe,
-**Sharing interoperable workflow provenance: A review of best practices and their practical application in CWLProv**,
-*GigaScience*, Volume 8, Issue 11, November 2019, giz095, <https://doi.org/10.1093/gigascience/giz095>
+Farah Zaib Khan, Stian Soiland-Reyes, Richard O Sinnott, Andrew Lonie, Carole Goble, Michael R Crusoe (2019):  
+**Sharing interoperable workflow provenance: A review of best practices and their practical application in CWLProv**.  
+*GigaScience* **8**(11):giz095 <https://doi.org/10.1093/gigascience/giz095>
+
+Citing the profile itself: [![Profile DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1471583.svg)](https://doi.org/10.5281/zenodo.1471583)
+
 
 ## Quicklinks
 
