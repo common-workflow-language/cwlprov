@@ -1,7 +1,16 @@
 # cwlprov
 Profile for provenance research object of a CWL workflow run.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1471583.svg)](https://doi.org/10.5281/zenodo.1471583)
+## Cite as 
+
+Peer-reviewed paper about CWLProv:
+
+Farah Zaib Khan, Stian Soiland-Reyes, Richard O Sinnott, Andrew Lonie, Carole Goble, Michael R Crusoe (2019):  
+**Sharing interoperable workflow provenance: A review of best practices and their practical application in CWLProv**.  
+*GigaScience* **8**(11):giz095 <https://doi.org/10.1093/gigascience/giz095>
+
+Citing the profile itself: [![Profile DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1471583.svg)](https://doi.org/10.5281/zenodo.1471583)
+
 
 ## Quicklinks
 
@@ -33,7 +42,7 @@ There are three parts to this profile:
 
 This repository may later also include formal profiles for computational validation, e.g. [BagIt profile](https://github.com/bagit-profiles/bagit-profiles) of included resources, [ShEx](http://shex.io/) for manifest content, and [PROV Template](https://provenance.ecs.soton.ac.uk/prov-template-2014-06-07/) to document PROV structures.
 
-The [CWLProv white paper](https://doi.org/10.5281/zenodo.1208477) describes the background and motivation for this profile. For the avoidance of doubt, from CWLProv 0.3.0 this GitHub repository is authoritative of CWLProv specifications.
+The [CWLProv white paper](https://doi.org/10.1093/gigascience/giz095) describes the background and motivation for this profile. For the avoidance of doubt, from CWLProv 0.3.0 this GitHub repository is authoritative of CWLProv specifications.
 
 
 ## Known implementations
